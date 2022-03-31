@@ -1,0 +1,96 @@
+*,*:before,*:after {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+h1{
+    font-size: 150px;
+}
+h2{
+    font-size: 50px;
+}
+body{
+    min-height:100%;
+}
+.form-container {
+    padding: 50px;
+    margin: 50px ;
+    background-color:whitesmoke;
+    border-radius:25px;
+
+}
+.btn-light{
+    background-color: #D4E8F3;
+}
+.btn-settings{
+    background-color: #77c4d1;
+    outline-color: #bccbd4;
+    min-width: 100%;
+}
+.btn-add{
+    min-width: 100%;
+    background-color:#8fb2b8;
+}
+#loginForm{
+    align-self: center;
+    height:350px;
+}
+#content{
+    background-color: lightblue;
+    width:100%;
+    min-height: 100vh;
+    height: auto;
+    text-decoration:none;
+
+}
+#mainTitle{
+    font-size:75px;
+    color: darkblue;
+}
+#mainLogo{
+    height:175px;
+    width:175px;
+}
+.btn{
+    size:100px 50px;
+
+    text-decoration:none;
+}
+.modal-footer{
+    border-top:0px;
+    border:0px;
+}
+.row{
+    --bs-gutter-x:0 rem;
+    padding: 0;
+}
+.contact{
+    background-color:#def3ff;
+}
+.contactNameText{
+    font-size:40px;
+
+    margin-left: 15px;
+
+}
+.contactExtendButton{
+    font-size:40px;
+
+}
+.contactInfoText{
+    margin-left:15px;
+    font-size:30px;
+}
+.editContactButton{
+    font-size:30px;
+    background-color: palegreen;
+}
+
+.hidden{
+    display:none;
+}
+.removeContactButton{
+    font-size:30px;
+    background-color: lightsalmon;
+}

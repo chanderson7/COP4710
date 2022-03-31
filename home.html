@@ -1,0 +1,142 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <!--Delete Account modal-->
+    <div class="modal fade" tabindex="-1" id="accDelConfirm">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Account Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="needs-validation" id="accDelForm" novalidate>
+                    <div class="alert collapse" role="alert" id="delAccAlert"></div>
+                    <div class="alert collapse" role="alert" id="accDelSucc">Account deletion successful</div>
+                    <div class="modal-body">
+                        <div class="row g-2">Please enter your username and password to confirm.</div>
+                        <div class="form-group mb-4 row g-2">
+                            <label for="accDel">Username</label>
+                            <input type="text" class="form-control" name="login" id="accDel" aria-describedby="name" placeholder="Enter Username">
+                            <div class="invalid-feedback" id="delUserMsg"></div>
+                        </div>
+                        <div class="form-group mb-2 row g-2">
+                            <label for="passDel">Password</label>
+                            <input type="password" name="password" class="form-control" id="passDel" placeholder="Enter Password">
+                            <div class="invalid-feedback" id="delPassMsg"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger" id="delAccBtn">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add user modal-->
+    <div class="modal" tabindex="-1" id="addConModal" aria-labelledby="addConModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addConBtnClose"></button>
+                </div>
+                <div class="alert collapse" role="alert" id="addConAlert"></div>
+                <div class="modal-body">
+                    <form id="addConForm" class="p-2 needs-validation" novalidate>
+                        <div class="row mb-3 gx-3">
+                            <div class="col">
+                                <label for="addFName">First Name</label>
+                                <input type="text" name="firstName" id="addFName" class="form-control form-control-lg" placeholder="Enter First Name" >
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col">
+                                <label for="addLName">Last Name</label>
+                                <input type="text" name="lastName" id="addLName" class="form-control form-control-lg" placeholder="Enter Last Name" >
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEmail">E-mail Address</label>
+                            <input type="email" name="emailAddress" id="addEmail" class="form-control form-control-lg" placeholder="Enter E-mail" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addPhone">Phone Number</label>
+                            <input type="text" name="phoneNumber" id="addPhone" class="form-control form-control-lg" placeholder="Enter Phone Number" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" value="Add User" class="btn btn-primary btn-block btn-lg" id="addConBtn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <body>
+        <div id = "content">
+            <h2 class = "text-center">Contact Man</h2>
+                <div class = "container">
+                    <div class = "row">
+                        <input class = "form-control from-control-lg" type = "text" placeholder = "Search" id="searchBar">
+                    </div>
+                    <div class ="row justify-content">
+                        <div class="col-6">
+                            <button class = "btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#addConModal">+</button>
+                        </div>
+                        <div class="col-6">
+<!--                            Settings menu drop down-->
+                            <div class="dropdown">
+                                <button class = "btn btn-settings dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Settings
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="userMenu">
+                                    <li><button class="dropdown-item" type="button" id="logoutBtn">Logout</button></li>
+                                    <li>
+                                        <button class="dropdown-item text-danger" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#accDelConfirm">Delete Account</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id = "contacts">
+                    </div>
+                    <div class ="row justify-content">
+                        <div class="col-6">
+                            <button id ="prevButton" class = "btn btn-add">&lt</button>
+                        </div>
+                        <div class="col-6">
+                            <button id = "nextButton" class = "btn btn-add">&gt</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </body>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="sha256.js"></script>
+    <script src="main.js"></script>
+    <script src="contacts.js"></script>
+    <script src="contactMaker.js"></script>
+</html>
