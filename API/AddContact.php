@@ -9,7 +9,7 @@
 	$reqTime = date('Y-m-d H:i:s');
 	$phoneRegex = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
 
-	$conn = new mysqli("localhost", "MAINUSER", "COP4331Project!", "COP4331"); 	
+	$conn = new mysqli("localhost", "MAINUSER", "WeLoveCOP4331", "COP4331"); 	
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );

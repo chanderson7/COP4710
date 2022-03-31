@@ -43,7 +43,7 @@ let lastName = "";
 function getLoginInfo(form){
     let formData = {}
     form.serializeArray().map(function(x){formData[x.name] = x.value;});
-    formData.password = sha256(formData.password)
+    //formData.password = formData.password)
     //console.log(formData)
     return formData
 }
@@ -52,7 +52,7 @@ function getRegInfo(){
     let firstName = document.getElementById("regFName").value
     let lastName = document.getElementById("regLName").value
     let login = document.getElementById("regUser").value
-    let password = sha256(document.getElementById("regPass").value)
+    let password = document.getElementById("regPass").value
     //let password = hashPass(document.getElementById("regPass").value)
     //let password = hashPass(password)
     return {firstName, lastName, login, password}
@@ -72,8 +72,8 @@ function postHandler(data, callback ,endPoint) {
             callback(response, textStatus, xhr)
         },
         error: function(xhr, textStatus, error){
-            console.log("\n\t" + endPoint + ": ERROR:\n", textStatus, error)
-            callback(null, textStatus, xhr)
+            console.log("\n\t" + endPoint + ": ERROR:\n" + "\n\t" + xhr, textStatus, error)
+            callback(error, textStatus, xhr)
         }
     }).always(function (xhr, status, error) {
         console.log("IN ALWAYS,\n XHR:\n", xhr, "\nSTATUS:\n", status, "\nERR:\n", error)
