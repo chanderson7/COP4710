@@ -38,7 +38,6 @@ function joinRSO(RSOID){
         var status = xhr.status;
         if (status === 200) {
                 window.alert(xhr.response.error)
-            }
         }
     }
     console.log('');
