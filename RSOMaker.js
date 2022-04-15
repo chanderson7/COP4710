@@ -3,10 +3,6 @@ const CONTACTS_PER_PAGE = 10;
 let currentRSOs;
 let userID;
 
-function addRSOCB(){
-
-}
-
 function applyHidden(div) {
     div.setAttribute("class",div.getAttribute("class")+ " hidden");
 }
