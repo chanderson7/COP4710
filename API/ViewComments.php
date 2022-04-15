@@ -33,7 +33,7 @@
 			$searchResults .= '"Event_id": ' . $row["Event_id"] . ',';
 			$searchResults .= '"Date": "' . $row["Date"] . '",';
 			$searchResults .= '"Text": "' . $row["Text"] . '",';
-			$searchResults .= '"Rating": "' . $row["Rating"] . '"';
+			$searchResults .= '"Rating": ' . $row["Rating"] ;
 
 			$finalResults .= $searchResults . "}";
 		}
