@@ -102,30 +102,19 @@
                 <!--                            </button>-->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link"  href="home.html">Events</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Events</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link button" id="allEvtButton" type="button">All Events</a></li>
+                                <li><a class="nav-link button" id="publicEvBtn" type="button">Public</a></li>
+                                <li><a class="nav-link button" id="privateEvBtn" type="button">Private</a></li>
+                                <li><a class="nav-link button" id="RSOEvBtn" type="button">RSO</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="RSO.html">RSOs</a>
-                        </li>
-                        <!--                                    <li class="nav-item dropdown">-->
-                        <!--                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-                        <!--                                            Dropdown-->
-                        <!--                                        </a>-->
-                        <!--                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-                        <!--                                            <li><a class="dropdown-item" href="#">Action</a></li>-->
-                        <!--                                            <li><a class="dropdown-item" href="#">Another action</a></li>-->
-                        <!--                                            <li><hr class="dropdown-divider"></li>-->
-                        <!--                                            <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-                        <!--                                        </ul>-->
-                        <!--                                    </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Universities</a>
-                        </li>
-
+                        <li class="nav-item"><a class="nav-link" href="RSO.html">RSOs</a></li>
                     </ul>
                     <form class="d-flex">
-                        <input class = "form-control from-control-lg" type = "text" placeholder = "Search" id="searchBar">
+                        <!--                                        <input class = "form-control from-control-lg" type = "text" placeholder = "Search" id="searchBar">-->
                         <!--                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
                         <!--                                    <button class="btn btn-outline-success" type="submit">Search</button>-->
                     </form>
@@ -152,15 +141,7 @@
                 </div>
             </div>
         </div>
-        <div id = "contacts">
-
-            <div class = "row contact" id="1" >
-                <div class ="contactNameText col">Jim Johnson</div>
-                <button class ="contactExtendButton col-2">&#8681;</button>
-                <div class = "row"><div class ="col contactInfoText">Email</div>  <div class ="col contactInfoText">Phone Number</div></div>
-                <div class = "row"><div class ="col contactInfoText">Jim@memeorg.com</div>  <div class ="col contactInfoText">513-500-2323</div></div>
-                <div class = "row"><button class = "col text-right editContactButton">Edit Contact</button><button class ="col removeContactButton">Remove Contact</button> </div>
-            </div>
+        <div id = "RSOs">
         </div>
         <div class ="row justify-content">
             <div class="col-6">
@@ -183,6 +164,5 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="sha256.js"></script>
 <script src="main.js"></script>
-<script src="RSOs.js"></script>
-<script src="contactMaker.js"></script>
+<script src="RSOMaker.js"></script>
 </html>

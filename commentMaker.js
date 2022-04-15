@@ -32,7 +32,7 @@ function addConCB(response, status, xhr){
 
 function deleteComment(commentID){
     let markedContact = document.getElementById(commentID);
-    if(window.confirm("Are you sure you want to delete this contact?")){
+    if(window.confirm("Are you sure you want to delete this comment?")){
         let data = {User_id:commentID, Event_id:sessionStorage.getItem('event')};
         console.log(data, "\nIn"+ API.deleteComment);
         //API CALL
@@ -249,13 +249,6 @@ function makeTextRatingHeaders(divClass, text, rating){
 }
 
 function appendCommentChildren(comment, commentDiv, commentID){
-    // here is where we make all the subdivs for the contact
-    // Below is for the name title
-    // let eventName = document.createElement("div");
-    // eventName.setAttribute("class","eventNameText col");
-    // eventName.setAttribute("Name",comment.Name);
-    // // eventName.setAttribute("lastName",event.Category);
-    // eventName.innerHTML = comment.name;
 
     // the extend button
     let extendButton = document.createElement("button");
@@ -265,7 +258,7 @@ function appendCommentChildren(comment, commentDiv, commentID){
     extendButton.addEventListener("click", function(){changeCommInfoState(commentID)});
 
     // the ones below only come up whem the extend button is pressed
-    let textRating = document.createElement("div");//was additionalInfo
+    let name = document.createElement("div");//was additionalInfo
     textRating.setAttribute("class","textRatingInfo");
     textRating.appendChild(makeTextRatingHeaders("textRatingInfoHeaders","Comment","Rating"))
     let textRatingInfo = makeTextRatingInfo("textRatingInfoContent", comment.Text, comment.Rating)
@@ -440,6 +433,6 @@ function updatePageState(results){
 loadInitialPageState();
 addPageButtonListeners();
 
-$( document ).ready(function() {
-    postHandler({Event_id:sessionStorage.getItem("event")}, searchCommentCB, API.viewComments)
-});
+// $( document ).ready(function() {
+//     postHandler({Event_id:sessionStorage.getItem("event")}, searchCommentCB, API.viewComments)
+// });

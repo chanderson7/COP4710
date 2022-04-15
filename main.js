@@ -11,7 +11,6 @@ const API = {
     searchCon: "SearchContacts.php",
 
     createEvent: "CreateEvent.php",
-    leaveRSO: "LeavesRSO.php",
     viewComments: "ViewComments.php",
     viewAllEvents: "ViewAllEvents.php",
     viewPrivateEvents: "ViewPrivateEvents.php",
@@ -20,8 +19,9 @@ const API = {
     addComment: "AddComment.php",
     deleteComment: "DeleteComment.php",
     editComment: "EditComment.php",
-    leaveRSO: "UserLeavesRSO.php"
-
+    leaveRSO: "UserLeavesRSO.php",
+    joinRSO: "AddUserToRSO.php",
+    viewAllRSOs: "ViewAllRSO"
 }
 
 const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}/;

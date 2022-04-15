@@ -1,334 +1,200 @@
-// let currentContact = 0;
-// const CONTACTS_PER_PAGE = 10;
+let currentContact = 0;
+const CONTACTS_PER_PAGE = 10;
 let currentRSOs;
 let userID;
 
 function applyHidden(div) {
     div.setAttribute("class",div.getAttribute("class")+ " hidden");
-
 }
 
-// adds a contact
-function addConCB(response, status, xhr){
-    let newContact
-    if (status !== "error") {
-        if (response.error === "") {
-            $("#addConAlert").removeClass("collapse alert-danger").addClass("alert-success").text(valMsg.addConSucc)
-            // re-search to show new contact
-            let searchData = {
-                "userId" : readCookie("id"), //55
-                "search" : $("#searchBar").val()
-            }
-            postHandler(searchData, searchCB, API.searchCon)
-        } else {
-            $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(valMsg.conExist)
-            // $("#loginPass").removeClass("is-valid")
-            // $("#loginUser").removeClass("is-valid")
-        }
-    } else {
-        $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(valMsg.addConErr)
-    }
-}
-
-function deleteContact(id){
-    let markedContact = document.getElementById(id);
-    if(window.confirm("Are you sure you want to delete this contact?")){
-        let data = {contactId:id};
-        console.log(data, "\nIn"+ API.delCon);
-        //API CALL
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", urlBase + site + API.delCon, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.responseType = "json";
-        console.log(JSON.stringify(data));
-        console.log(urlBase + site + API.delCon);
-        xhr.send(JSON.stringify(data));
-        xhr.onload = function() {
-            var status = xhr.status;
-            if (status === 200) {
-                if (xhr.response.error === "") {
-                    markedContact.remove();
-                    window.alert("Contact successfully deleted")
-                    // re-search to remove deleted contact on page change
-                    let searchData = {
-                        "userId" : readCookie("id"),
-                        "search" : $("#searchBar").val()
-                    }
-                    postHandler(searchData, searchCB, API.searchCon)
-                } else {
-                    window.alert("Contact does not exist")
-                }
-            }
-        }
-        console.log('HEY');
-    }
-}
-/*
-function deleteContact(id){
-  let markedContact = document.getElementById(id);
-  if(window.confirm("Are you sure you want to delete this contact?")){
-    let data = {contactId:id};
-    console.log(data, "\nIn"+ API.delCon)
-    //API CALL
-    $.ajax({
-      url: urlBase + site + API.delCon,
-      data: data,
-      method: "POST",
-      contentType: "application/json; charset=UTF-8",
-      dataType: "json",
-      success: function (response, textStatus, xhr) {
-        console.log("SUCCESS:\n", response, textStatus)
-        if (response.error === "") {
-          markedContact.remove();
-          window.alert("Contact successfully deleted")
-        } else {
-          window.alert("Contact does not exist")
-        }
-      },
-      error: function(xhr, textStatus, error){
-        console.log("\n\tERROR:\n", textStatus, error)
-        window.alert("Communication error, please try again")
-      }
-    }).always(function (xhr, status, error) {
-      console.log("IN ALWAYS,\n XHR:", xhr, "\nSTATUS:\n", status, "\nERR:\n", error)
-    })
-  }
-}
-*/
-
-function makeEditButtons(contactID){
-    let newRow = document.createElement("div");
-    newRow.setAttribute("class","row editButtons");
-    newRow.setAttribute("contactID",contactID);
-    let confirmEditButton = document.createElement("button");
-    let rejectEditButton = document.createElement("button");
-    confirmEditButton.setAttribute("class","col text-right editContactButton");
-    rejectEditButton.setAttribute("class","col removeContactButton");
-    rejectEditButton.addEventListener("click",function(){ rejectEdit() });
-    confirmEditButton.addEventListener("click",function(){ confirmEdit(contactID) });
-    confirmEditButton.innerHTML = "Confirm Edit";
-    rejectEditButton.innerHTML = "Reject Edit";
-    newRow.appendChild(confirmEditButton);
-    newRow.appendChild(rejectEditButton);
-    return newRow;
-}
-
-function rejectEdit(){
-    resetPageState();
-}
-function getChildValueByClass(parent,divClass){
-    return parent.querySelector("."+divClass).value;
-}
-function apiCallForEdit(data){
-    //API CALL
+function leaveRSO(RSOID){
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", urlBase + site + API.editCon, true);
+    let data = {RSO_id:RSOID, User_id:readCookie("id")}
+    xhr.open("POST", urlBase + site + API.leaveRSO, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.responseType = "json";
     console.log(JSON.stringify(data));
-    console.log(urlBase + site + API.editCon);
+    console.log(urlBase + site + API.leaveRSO);
     xhr.send(JSON.stringify(data));
     xhr.onload = function() {
         var status = xhr.status;
         if (status === 200) {
             if (xhr.response.error === "") {
-
-            } else {
+                window.alert(Response.error)
             }
         }
     }
     console.log('HEY');
 }
-function confirmEdit(contactID){
-    // probably not necessary
-    //DO API CALL HERE
-    // IF THE CALL IS VALID RESET STATE
-    // OTHERWISE DISPLAY ISSUE AND WAIT UNTIL BUTTON IS PRESSED AGAIN
-    let contact = document.getElementById(contactID);
-    let firstName  = getChildValueByClass(contact,"firstname");
-    let lastName  = getChildValueByClass(contact,"lastname");
-    let email = getChildValueByClass(contact,"emailText");
-    let phone = getChildValueByClass(contact,"phoneText");
-    let apiCall = {"id": contactID,"firstName": firstName,"lastName": lastName,"emailAddress": email,"phoneNumber": phone};
-    apiCallForEdit(apiCall);
-    setTimeout(()=>{ resetPageState() },100);
-}
 
-// TODO: editcontact placeholder
-function prepareDivEdit(id){
-    let curContact = document.getElementById(id);
-    // make the new name div and input fields
-    let inputRow = curContact.querySelector(".contactNameText");
-    let firstNameInput = document.createElement("input");
-    let lastNameInput = document.createElement("input");
-    // Set attributes
-    firstNameInput.setAttribute("value",inputRow.getAttribute("firstname"));
-    firstNameInput.setAttribute("class","firstname col");
-    lastNameInput.setAttribute("value",inputRow.getAttribute("lastname"));
-    lastNameInput.setAttribute("class","lastname col");
-    // append the children to the row class
-    inputRow.innerHTML = "";
-    inputRow.appendChild(firstNameInput);
-    inputRow.appendChild(lastNameInput);
-    // do the same for email and phone
-    let additionalInfoContentDiv = curContact.querySelector(".additionalInfoContent");
-    let oldPhoneDiv = curContact.querySelector(".phoneText");
-    let oldEmailDiv = curContact.querySelector(".emailText");
-    let newPhoneDiv = document.createElement("input");
-    let newEmailDiv = document.createElement("input");
-    newPhoneDiv.setAttribute("value",oldPhoneDiv.innerHTML);
-    newEmailDiv.setAttribute("value",oldEmailDiv.innerHTML);
-    newPhoneDiv.setAttribute("class","phoneText contactInfoText col");
-    newEmailDiv.setAttribute("class","emailText contactInfoText col");
-    additionalInfoContentDiv.innerHTML = "";
-    additionalInfoContentDiv.appendChild(newEmailDiv);
-    additionalInfoContentDiv.appendChild(newPhoneDiv);
-    // remove old buttons
-    curContact.querySelector(".editButtons").remove();
-    curContact.appendChild(makeEditButtons(id));
+function joinRSO(RSOID){
+    var xhr = new XMLHttpRequest();
+    let data = {RSO_id:RSOID, User_id:readCookie("id")}
+    xhr.open("POST", urlBase + site + API.joinRSO, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.responseType = "json";
+    console.log(JSON.stringify(data));
+    console.log(urlBase + site + API.joinRSO);
+    xhr.send(JSON.stringify(data));
+    xhr.onload = function() {
+        var status = xhr.status;
+        if (status === 200) {
+            if (xhr.response.error === "") {
+                window.alert(Response.error)
+            }
+        }
+    }
+    console.log('');
 }
 
 // this takes the div class attribute as well as  the inner content
-function makeEditAndDeleteButtonDiv(contactID){
+function makeLeaveJoinDiv(RSOID){
     let newRow = document.createElement("div");
-    newRow.setAttribute("class","row editButtons");
-    newRow.setAttribute("contactID",contactID);// RSOID
-    let editButton = document.createElement("button");
-    let deleteButton = document.createElement("button");
-    editButton.setAttribute("class","col text-right editContactButton");// removeRSOButton
-    deleteButton.setAttribute("class","col removeContactButton");//
-    deleteButton.addEventListener("click",function(){ deleteContact(contactID) });// RSOID
-    editButton.addEventListener("click",function(){prepareDivEdit(contactID)});
-    editButton.innerHTML = "Edit Contact";// join RSO
-    deleteButton.innerHTML = "Remove Contact";// join RSO
-    newRow.appendChild(editButton);
-    newRow.appendChild(deleteButton);
+    newRow.setAttribute("class","row memberButtons");
+    newRow.setAttribute("RSOid",RSOID);// RSOID
+    let joinButton = document.createElement("button");
+    let leaveButton = document.createElement("button");
+    joinButton.setAttribute("class","col text-right joinRSOButton");// removeRSOButton
+    leaveButton.setAttribute("class","col leaveRSOButton");//
+    leaveButton.addEventListener("click",function(){ leaveRSO(RSOID) });// RSOID
+    joinButton.addEventListener("click",function(){joinRSO(RSOID)});
+    joinButton.innerHTML = "Join RSO";// join RSO
+    leaveButton.innerHTML = "Leave RSO";// Leave RSO
+    newRow.appendChild(joinButton);
+    newRow.appendChild(leaveButton);
     return newRow;
 }
 
-function makeContactInfoContentDiv(divClass,email,phone){// remove phone arg
+function makeNameDescInfo(divClass, text, rating){// remove phone arg
     let ci = document.createElement("div");
     ci.setAttribute("class","row "+divClass);
 
-    let emailDiv = document.createElement("div");
-    emailDiv.setAttribute("class","col contactInfoText emailText");// descriptionText
-    emailDiv.innerHTML = email;
+    let categoryDiv = document.createElement("div");
+    categoryDiv.setAttribute("class","col textRatingInfoText commentText");// descriptionText
+    categoryDiv.innerHTML = text;
 
     // remove block
-    let phoneDiv= document.createElement("div");
-    phoneDiv.setAttribute("class","col contactInfoText phoneText");
-    phoneDiv.innerHTML = phone;
+    let locationDiv= document.createElement("div");
+    locationDiv.setAttribute("class","col textRatingInfoText ratingText");
+    locationDiv.innerHTML = rating;
 
-    ci.appendChild(emailDiv);
-    ci.appendChild(phoneDiv);//remove
+    ci.appendChild(categoryDiv);
+    ci.appendChild(locationDiv);//remove
 
     return ci;
 }
 
-function makeContactInfoDiv(divClass,email,phone){// get rid of phone arg
+function makeNameDescHeaders(divClass, text, rating){
     let ci = document.createElement("div");
-    ci.setAttribute("class","row "+divClass);
+    ci.setAttribute("class", "row " + divClass);
 
-    // doesnt really have to change since its just using the arguments
-    let emailDiv = document.createElement("div");
-    emailDiv.setAttribute("class","col contactInfoText");
-    emailDiv.innerHTML = email;
+    let categoryDiv = document.createElement("div");
+    categoryDiv.setAttribute("class", "col eventInfoText");
+    categoryDiv.innerHTML = text;
 
-    //remove this block
-    let phoneDiv= document.createElement("div");
-    phoneDiv.setAttribute("class","col contactInfoText");
-    phoneDiv.innerHTML = phone;
+    let locationDiv = document.createElement("div");
+    locationDiv.setAttribute("class", "col eventInfoText");
+    locationDiv.innerHTML = rating;
 
-    ci.appendChild(emailDiv);
-    ci.appendChild(phoneDiv);// remove
+    ci.appendChild(categoryDiv);
+    ci.appendChild(locationDiv);
     return ci;
 }
 
-function appendContactChildren(contact,contactDiv,contactID){
-    // here is where we make all the subdivs for the contact
-    // Below is for the name title
-    let contactName = document.createElement("div");
-    contactName.setAttribute("class","contactNameText col");
-    contactName.setAttribute("firstName",contact.FirstName);//("name", RSO.name);
-    contactName.setAttribute("lastName",contact.LastName);//("description, RSO.description")
-    contactName.innerHTML = contact.FirstName +" "+contact.LastName;//("RSO.name")
-
+function appendContactChildren(RSO,RSODiv,RSOID){
     // the extend button
     let extendButton = document.createElement("button");
-    extendButton.setAttribute("class","contactExtendButton col-2");
-    extendButton.setAttribute("contactID",contact.ID);
+    extendButton.setAttribute("class","RSOExtendButton col-2");
+    extendButton.setAttribute("RSOID",RSO.RSO_id);
     extendButton.innerHTML = "&#8681;";
-    extendButton.addEventListener("click", function(){changeInfoState(contactID)});
+    extendButton.addEventListener("click", function(){changeInfoState(RSOID)});
 
-    // the ones below only come up whem the extend button is pressed
-    let additionalInfo = document.createElement("div");
-    additionalInfo.setAttribute("class","additionalInfo");
-    additionalInfo.appendChild(makeContactInfoDiv("additionalInfoHeaders","Email","Phone"))//, "Description")
-    let contactInfo =  makeContactInfoContentDiv("additionalInfoContent",contact.EmailAddress,contact.PhoneNumber)//, RSO.description")
+    let nameDesc = document.createElement("div");//was additionalInfo
+    nameDesc.setAttribute("class","nameDescInfo");
+    nameDesc.appendChild(makeNameDescHeaders("nameDescInfoHeaders","Name","Description"))
+    let nameDescInfo = makeNameDescInfo("nameDescInfoContent", RSO.Name, RSO.Description)
 
     // now we append the children
-    let editButtons = makeEditAndDeleteButtonDiv(contactID);
-    contactDiv.appendChild(contactName);
-    contactDiv.appendChild(extendButton);
+    let memberButtons = makeLeaveJoinDiv(RSOID);
+    RSODiv.appendChild(extendButton);
 
-    applyHidden(additionalInfo);
-    applyHidden(contactInfo);
-    applyHidden(editButtons);
+    applyHidden(nameDescInfo);
+    applyHidden(memberButtons);
 
-    contactDiv.appendChild(additionalInfo);
-    contactDiv.appendChild(contactInfo)
-    contactDiv.appendChild(editButtons);
+    RSODiv.appendChild(nameDescInfo);
+    RSODiv.appendChild(memberButtons);
 }
 
-function makeContactDiv(contact,contactID){
-    let contactDiv = document.createElement("div");
-    appendContactChildren(contact,contactDiv,contactID);
+// this function changes state of info from hidden to showing or vis-versa
+function changeInfoState(RSOID){
+    let RSO = document.getElementById(RSOID);
+    let nameDescHeaders = RSO.querySelector(".nameDescInfo");
+    let nameDescInfo = RSO.querySelector(".nameDescInfoContent");
+    let editButtons = RSO.querySelector(".editButtons");
+    // if the div is hidden
+    if(RSO.getAttribute("infoHidden")=="true")
+    {
+        nameDescHeaders.setAttribute("class","nameDescInfo");
+        RSO.setAttribute("infoHidden","false");
+        editButtons.setAttribute("class","row memberButtons")
+        nameDescInfo.setAttribute("class","row nameDescInfoContent");
+    }
+    else{
+        applyHidden(nameDescHeaders);
+        applyHidden(nameDescInfo);
+        applyHidden(editButtons);
+        RSO.setAttribute("infoHidden","true");
+    }
+}
 
-    return contactDiv
+function makeContactDiv(RSO, RSOID){
+    let RSODiv = document.createElement("div");
+    appendContactChildren(RSO,RSODiv,RSOID);
+    return RSODiv
 }
 
 // loads contacts in range
-function loadContacts(contacts,lower,upper){
-    // first we have to remove any contacts from previous loads
-    console.log("loadContact's range is from "  +lower +"to"+ upper);
-    let contactsDiv = document.querySelector("#contacts");
+function loadRSOs(RSOs, lower, upper){
+    // first we have to remove any RSOs from previous loads
+    console.log("loadRSO's range is from "  +lower +"to"+ upper);
+    let contactsDiv = document.querySelector("#RSOs");
     contactsDiv.innerHTML ="";
-    // now we iterate through the contacts, making a div for each
-    // we must make sure that the amount of contacts is within range
-    if(upper <= contacts.length){
+    // now we iterate through the RSOs, making a div for each
+    // we must make sure that the amount of RSOs is within range
+    if(upper <= RSOs.length){
 
         for(let i = lower; i<upper;i++)
         {
-            let newContact = makeContactDiv(contacts[i],contacts[i].ID);
-            newContact.setAttribute("id",contacts[i].ID);
-            newContact.setAttribute("class","row contact");
+            let newContact = makeContactDiv(RSOs[i],RSOs[i].RSO_id);
+            newContact.setAttribute("id",RSOs[i].RSO_id);
+            newContact.setAttribute("class","row RSO");
             newContact.setAttribute("infoHidden","true");
             contactsDiv.appendChild(newContact);
         }
     }
-    else if (upper > contacts.length && lower<=contacts.length){
+    else if (upper > RSOs.length && lower<=RSOs.length){
 
-        for(let i = lower; i<contacts.length;i++)
+        for(let i = lower; i<RSOs.length;i++)
         {
-            let newContact = makeContactDiv(contacts[i],contacts[i].ID);
-            newContact.setAttribute("id",contacts[i].ID);
-            newContact.setAttribute("class","row contact");
+            let newContact = makeContactDiv(RSOs[i],RSOs[i].RSO_id);
+            newContact.setAttribute("id",RSOs[i].RSO_id);
+            newContact.setAttribute("class","row RSO");
             newContact.setAttribute("infoHidden","true");
             contactsDiv.appendChild(newContact);
         }
     }
 }
 
-function searchCB(response, textStatus, xhr){
+function searchRSOCB(response, textStatus, xhr){
     if (textStatus !== "error") {
         if (response.error === "") {
             updatePageState(response.results)
-            loadContacts(currentRSOs,0,CONTACTS_PER_PAGE);
+            loadRSOs(currentRSOs,0,CONTACTS_PER_PAGE);
             currentContact = CONTACTS_PER_PAGE;
         } else {
             // TODO: no contacts found error message
             updatePageState({});
-            loadContacts(currentRSOs,0,CONTACTS_PER_PAGE);
+            loadRSOs(currentRSOs,0,CONTACTS_PER_PAGE);
         }
     } else {
         // TODO: please try again error msg
@@ -338,36 +204,6 @@ function searchCB(response, textStatus, xhr){
     }
 }
 
-function getContactInfo(contact){
-    let email = contact.email;
-    let phoneNum = contact.phoneNumber;
-    let contactInfoDiv = document.createElement("div");
-    contactInfoDiv.innerHTML = email + "  "+ phoneNum;
-    return contactInfoDiv;
-}
-
-// this function changes state of info from hidden to showing or vis-versa
-function changeInfoState(contactID){
-    let contact = document.getElementById(contactID);
-    let infoHeader = contact.querySelector(".additionalInfo");
-    let infoContent = contact.querySelector(".additionalInfoContent");
-    let editButtons = contact.querySelector(".editButtons");
-    // if the div is hidden
-    if(contact.getAttribute("infoHidden")=="true")
-    {
-        infoHeader.setAttribute("class","additionalInfo");
-        contact.setAttribute("infoHidden","false");
-        editButtons.setAttribute("class","row editButtons")
-        infoContent.setAttribute("class","row additionalInfoContent");
-
-    }
-    else{
-        applyHidden(infoHeader);
-        applyHidden(infoContent);
-        applyHidden(editButtons);
-        contact.setAttribute("infoHidden","true");
-    }
-}
 function getNextPage(){
 
     // only load next page if there is one
@@ -375,17 +211,17 @@ function getNextPage(){
         // if loading the next amount of contacts will go over the length
         // just go up to length
         if(currentContact + (CONTACTS_PER_PAGE) > currentRSOs.length){
-            loadContacts(currentRSOs,currentContact,currentRSOs.length);
+            loadRSOs(currentRSOs,currentContact, currentRSOs.length);
             currentContact = currentRSOs.length;
         }
         else{
-            loadContacts(currentRSOs,currentContact,currentContact+(CONTACTS_PER_PAGE*2));
+            loadRSOs(currentRSOs,currentContact,currentContact+(CONTACTS_PER_PAGE*2));
             currentContact+=CONTACTS_PER_PAGE;
         }
     }
 }
 function getPrevPage(){
-    loadContacts(currentRSOs,0,10);
+    loadRSOs(currentRSOs,0,10);
     currentContact = 10;
 
 }
@@ -406,8 +242,8 @@ function addSearchBarEL(){
 */
 function searchAndUpdate(){
     // first get search bar contents
-    let searchBar = document.querySelector("#searchBar");
-    postHandler({userId:userID, search:searchBar.value},searchCB,API.searchCon);
+    // let searchBar = document.querySelector("#searchBar");
+    postHandler({},searchRSOCB,API.viewAllRSOs);
 }
 
 // this will get the ID of the current user with a cookie as well as call the empty search
