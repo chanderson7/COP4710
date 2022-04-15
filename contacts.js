@@ -4,7 +4,7 @@ let addCommentForm = $("#addCommentForm")
 function getFormInfo(form) {
     let data = {}
     form.serializeArray().map(function(x){ data[x.name] = x.value })
-    let contact = {"User_ID": readCookie("id")}
+    let contact = {"User_id": readCookie("id")}
     contact = $.extend(contact, data)
     // console.log(contact)
     return contact
