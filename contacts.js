@@ -50,6 +50,7 @@ $(function() {
         rules: {
             Category: "required",
             Name: "required",
+            Event_id: "required",
             Description: "required",
             Time: "required",
             Date: "required",
