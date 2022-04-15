@@ -412,7 +412,7 @@ function updatePageState(results){
 }
 
 $( document ).ready(function() {
-    postHandler({Event_id:sessionStorage.getItem("event")}, searchCB, API.viewComments)
+    postHandler({}, searchCB, API.viewAllEvents)
 });
 
 // addSearchBarEL()
