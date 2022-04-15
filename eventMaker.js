@@ -393,8 +393,9 @@ function addSearchBarEL(){
 */
 function searchAndUpdate(){
     // first get search bar contents
-    let searchBar = document.querySelector("#searchBar");
-    postHandler({userId:userID, search:searchBar.value},searchCB,API.searchCon);
+    // let searchBar = document.querySelector("#searchBar");
+    // postHandler({userId:userID, search:searchBar.value},searchCB,API.searchCon);
+    postHandler({},searchCB,API.viewAllEvents);
 }
 
 // this will get the ID of the current user with a cookie as well as call the empty search

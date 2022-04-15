@@ -381,7 +381,9 @@ function searchAndUpdate(){
   // first get search bar contents
   let searchBar = document.querySelector("#searchBar");
 
-  postHandler({userId:userID, search:searchBar.value},searchCB,API.searchCon);
+  // postHandler({userId:userID, search:searchBar.value},searchCB,API.searchCon);
+  postHandler({userId:userID, search:searchBar.value},searchCB,API.viewAllEvents);
+
 }
 
 function searchCB(response, textStatus, xhr){
