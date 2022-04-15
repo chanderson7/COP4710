@@ -30,14 +30,14 @@ function addConCB(response, status, xhr){
     }
 }
 
-function deleteComment(id){
-    let markedContact = document.getElementById(id);
+function deleteComment(commentID){
+    let markedContact = document.getElementById(commentID);
     if(window.confirm("Are you sure you want to delete this contact?")){
-        let data = {contactId:id};
-        console.log(data, "\nIn"+ API.delCon);
+        let data = {User_id:commentID, Event_id:sessionStorage.getItem('event')};
+        console.log(data, "\nIn"+ API.deleteComment);
         //API CALL
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", urlBase + site + API.delCon, true);
+        xhr.open("POST", urlBase + site + API.deleteComment, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.responseType = "json";
         console.log(JSON.stringify(data));
