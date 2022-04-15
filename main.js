@@ -1,4 +1,4 @@
-const urlBase = 'https://137.184.80.201/';
+const urlBase = 'http://137.184.80.201/';
 const site = "API/"
 
 const API = {
@@ -20,7 +20,7 @@ const API = {
     addComment: "AddComment.php",
     deleteComment: "DeleteComment.php",
     editComment: "EditComment.php",
-    leaveRSO: "UserLeavesRSO.php",
+    leaveRSO: "UserLeavesRSO.php"
 
 }
 
