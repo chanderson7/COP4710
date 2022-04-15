@@ -223,11 +223,6 @@ function appendEventChildren(event, eventDiv, eventID){
     contacts.appendChild(makeContactInfoHeaders("contactInfoHeaders", "Email", "Phone"))
     let contactInfo =  makeContactInfo("contactInfoContent",event.Contact_email,event.Contact_phone)
 
-    // let description = document.createElement("div");
-    // description.setAttribute("class","descriptionInfo");
-    // description.appendChild(makeDescriptionHeader("descriptionHeader", "Description"))
-    // let descriptionInfo =  makeDescriptionInfo("descriptionInfoContent",event.Description)
-
     // now we append the children
     let commentButtons = makeCommentButtons(eventID);
     eventDiv.appendChild(eventName);

@@ -107,7 +107,7 @@ function appendContactChildren(RSO,RSODiv,RSOID){
     extendButton.setAttribute("class","RSOExtendButton col-2");
     extendButton.setAttribute("RSOID",RSO.RSO_id);
     extendButton.innerHTML = "&#8681;";
-    extendButton.addEventListener("click", function(){changeInfoState(RSOID)});
+    extendButton.addEventListener("click", function(){changeRSOInfoState(RSOID)});
 
     let nameDesc = document.createElement("div");//was additionalInfo
     nameDesc.setAttribute("class","nameDescInfo");
@@ -118,21 +118,23 @@ function appendContactChildren(RSO,RSODiv,RSOID){
     let memberButtons = makeLeaveJoinDiv(RSOID);
     RSODiv.appendChild(extendButton);
 
+    applyHidden(nameDesc)
     applyHidden(nameDescInfo);
     applyHidden(memberButtons);
 
+    RSODiv.appendChild(nameDesc);
     RSODiv.appendChild(nameDescInfo);
     RSODiv.appendChild(memberButtons);
 }
 
 // this function changes state of info from hidden to showing or vis-versa
-function changeInfoState(RSOID){
+function changeRSOInfoState(RSOID){
     let RSO = document.getElementById(RSOID);
     let nameDescHeaders = RSO.querySelector(".nameDescInfo");
     let nameDescInfo = RSO.querySelector(".nameDescInfoContent");
     let editButtons = RSO.querySelector(".editButtons");
     // if the div is hidden
-    if(RSO.getAttribute("infoHidden")=="true")
+    if(RSO.getAttribute("infoHidden")==="true")
     {
         nameDescHeaders.setAttribute("class","nameDescInfo");
         RSO.setAttribute("infoHidden","false");
