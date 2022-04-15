@@ -286,38 +286,38 @@ function changeEventInfoState(eventID){
     }
 }
 
-function makeEventDiv(contact, contactID){
-    let contactDiv = document.createElement("div");
-    appendEventChildren(contact,contactDiv,contactID);
+function makeEventDiv(event, eventID){
+    let eventDiv = document.createElement("div");
+    appendEventChildren(event,eventDiv,eventID);
 
-    return contactDiv
+    return eventDiv
 }
 
 // loads contacts in range
-function loadEvents(contacts, lower, upper){
+function loadEvents(events, lower, upper){
     // first we have to remove any contacts from previous loads
     console.log("loadContact's range is from "  +lower +"to"+ upper);
     let contactsDiv = document.querySelector("#contacts");
     contactsDiv.innerHTML ="";
     // now we iterate through the contacts, making a div for each
     // we must make sure that the amount of contacts is within range
-    if(upper <= contacts.length){
+    if(upper <= events.length){
 
         for(let i = lower; i<upper;i++)
         {
-            let newContact = makeEventDiv(contacts[i],contacts[i].ID);
-            newContact.setAttribute("id",contacts[i].ID);
+            let newContact = makeEventDiv(events[i],events[i].Event_id);
+            newContact.setAttribute("id",events[i].Event_id);
             newContact.setAttribute("class","row contact");
             newContact.setAttribute("infoHidden","true");
             contactsDiv.appendChild(newContact);
         }
     }
-    else if (upper > contacts.length && lower<=contacts.length){
+    else if (upper > events.length && lower<=events.length){
 
-        for(let i = lower; i<contacts.length;i++)
+        for(let i = lower; i<events.length;i++)
         {
-            let newContact = makeEventDiv(contacts[i],contacts[i].ID);
-            newContact.setAttribute("id",contacts[i].ID);
+            let newContact = makeEventDiv(events[i],events[i].Event_id);
+            newContact.setAttribute("id",events[i].Event_id);
             newContact.setAttribute("class","row contact");
             newContact.setAttribute("infoHidden","true");
             contactsDiv.appendChild(newContact);
