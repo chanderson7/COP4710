@@ -19,7 +19,7 @@ function leaveRSO(RSOID){
     xhr.onload = function() {
         var status = xhr.status;
         if (status === 200) {
-                window.alert(response.error)
+                window.alert(xhr.response.error)
         }
     }
     console.log('HEY');
@@ -37,7 +37,8 @@ function joinRSO(RSOID){
     xhr.onload = function() {
         var status = xhr.status;
         if (status === 200) {
-                window.alert(response.error)
+                window.alert(xhr.response.error)
+            }
         }
     }
     console.log('');
