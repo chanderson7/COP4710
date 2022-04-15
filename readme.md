@@ -1,12 +1,8 @@
-# COP4331 small project
+# COP4710 Big Project
 
 ## Members
-- Acevedo, Daniel (@DA1030)
-- Cobble, Addison (@ReissueYetis)
-- Gutierrez, Santiago (@santigut123)
-- Lum Shue Chan, Caleb (@clumshuechan)
-- Phan, Andrew (@treenamu)
+- Anderson, Charles (@chanderson7)
+- Dubin, Mark (@doob265)
 - Volny, Jovan (@J-VOL)
 
-## Discord link
-https://discord.gg/y5trnC2T
+
