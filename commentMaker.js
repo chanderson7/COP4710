@@ -148,6 +148,7 @@ function confirmCommentEdit(commentID){
     let data = getFormInfo($("#addCommentForm"))
     let apiCall = {"Event_id": sessionStorage.getItem("event"),"User_id": commentID};
     data = $.extend(data, apiCall)
+    console.log(data)
     apiCallForEdit(data);
     setTimeout(()=>{ resetPageState() },100);
 }
