@@ -7,7 +7,6 @@ let currentEvent
 
 function applyHidden(div) {
     div.setAttribute("class",div.getAttribute("class")+ " hidden");
-
 }
 function viewComments(eventID){
     sessionStorage.setItem("event", eventID)
@@ -186,12 +185,12 @@ function appendEventChildren(event, eventDiv, eventID){
     eventName.setAttribute("class","eventNameText col");
     eventName.setAttribute("Name",event.Name);
     // eventName.setAttribute("lastName",event.Category);
-    eventName.innerHTML = event.name;
+    eventName.innerHTML = event.Name;
 
     // the extend button
     let extendButton = document.createElement("button");
     extendButton.setAttribute("class","contactExtendButton col-2");
-    extendButton.setAttribute("contactID",event.ID);
+    extendButton.setAttribute("eventID",event.Event_id);
     extendButton.innerHTML = "&#8681;";
     extendButton.addEventListener("click", function(){changeEventInfoState(eventID)});
 
