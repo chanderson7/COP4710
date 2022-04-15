@@ -16,16 +16,23 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("SELECT ID FROM Users WHERE ID=?");
-    $stmt->bind_param("i", $inData["user_id"]);
+    $stmt = $conn->prepare("SELECT User_id FROM Owns WHERE User_id=? && RSO_id=?");
+    $stmt->bind_param("is", $inData["user_id"], $inData["RSO_id"]);
     $stmt->execute();
     $result = $stmt->get_result();
+    if( $row = $result->fetch_assoc() )
+    {
+        returnWithError("User already in RSO!");
+    }
 
-    $stmt = $conn->prepare("INSERT INTO Owns VALUES (?, ?)");
-    $stmt->bind_param("ss", $inData["user_id"], $inData["RSO_id"]);
-    $stmt->execute();
-
-    returnWithError("Added to RSO!");
+    else
+    {
+        $stmt = $conn->prepare("INSERT INTO Owns VALUES (?, ?)");
+        $stmt->bind_param("ss", $inData["user_id"], $inData["RSO_id"]);
+        $stmt->execute();
+    
+        returnWithError("Added to RSO!");
+    }
 }
 
 function getRequestInfo()
