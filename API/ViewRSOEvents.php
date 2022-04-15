@@ -34,8 +34,8 @@
 			$searchResults .= '"Description": "' . $row["Description"] . '",';
 			$searchResults .= '"Time": "' . $row["Time"] . '",';
 			$searchResults .= '"Date": "' . $row["Date"] . '",';
-			$searchResults .= '"Contact_phone": ' . $row["Contact_phone"] . '",';
-            $searchResults .= '"Contact_email": ' . $row["Contact_email"] . '"';
+			$searchResults .= '"Contact_phone": "' . $row["Contact_phone"] . '",';
+            $searchResults .= '"Contact_email": "' . $row["Contact_email"] . '"';
 
 			$finalResults .= $searchResults . "}";
 		}
