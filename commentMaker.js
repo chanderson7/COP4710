@@ -140,14 +140,17 @@ function confirmCommentEdit(commentID){
     //DO API CALL HERE
     // IF THE CALL IS VALID RESET STATE
     // OTHERWISE DISPLAY ISSUE AND WAIT UNTIL BUTTON IS PRESSED AGAIN
-    // let contact = document.getElementById(commentID);
-    // let firstName  = getChildValueByClass(contact,"firstname");
-    // let lastName  = getChildValueByClass(contact,"lastname");
-    // let email = getChildValueByClass(contact,"emailText");
-    // let phone = getChildValueByClass(contact,"phoneText");
-    let data = getFormInfo($("#addCommentForm"))
-    let apiCall = {"Event_id": sessionStorage.getItem("event"),"User_id": commentID};
-    data = $.extend(data, apiCall)
+    let comment = document.getElementById(commentID);
+    let commentText  = getChildValueByClass(comment,"commentText");
+    let rating  = getChildValueByClass(comment,"ratingText");
+
+    let data = {
+        "Event_id": sessionStorage.getItem("event"),
+        "User_id": commentID,
+        "Text": commentText,
+        "Rating": rating
+    };
+    // data = $.extend(data, apiCall)
     console.log(data)
     apiCallForEdit(data);
     setTimeout(()=>{ resetPageState() },100);
