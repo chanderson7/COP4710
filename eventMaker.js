@@ -34,22 +34,7 @@ function addCommentCB(response, status, xhr){
     }
 }
 
-function addConCB(response, status, xhr){
-    let newContact
-    if (status !== "error") {
-        if (response.error === "") {
-            $("#addConAlert").removeClass("collapse alert-danger").addClass("alert-success").text("Added event!")
-            // re-search to show new contact
-            postHandler({}, searchCB, API.viewAllEvents)
-        } else {
-            $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(response.error)
-            // $("#loginPass").removeClass("is-valid")
-            // $("#loginUser").removeClass("is-valid")
-        }
-    } else {
-        $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(valMsg.addConErr)
-    }
-}
+
 
 // this takes the div class attribute as well as  the inner content
 function makeCommentButtons(eventID){ // this will have to be user_id, one per user.

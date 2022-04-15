@@ -36,6 +36,23 @@ $("#searchBar").on("keyup", function(event){
     postHandler(data, searchCB, API.searchCon)
 })
 
+function addConCB(response, status, xhr){
+    let newContact
+    if (status !== "error") {
+        if (response.error === "") {
+            $("#addConAlert").removeClass("collapse alert-danger").addClass("alert-success").text("Added event!")
+            // re-search to show new contact
+            postHandler({}, searchCB, API.viewAllEvents)
+        } else {
+            $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(response.error)
+            // $("#loginPass").removeClass("is-valid")
+            // $("#loginUser").removeClass("is-valid")
+        }
+    } else {
+        $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(valMsg.addConErr)
+    }
+}
+
 // event and validation handling
 $(function() {
     // add contact
