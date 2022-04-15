@@ -16,38 +16,27 @@
 	}
 	else
 	{
-		if ((strlen($inData["phoneNumber"]) > 50) || (strlen($inData["emailAddress"]) > 50) || (strlen($inData["lastName"]) > 50) || (strlen($inData["firstName"]) > 50))
+		$stmt = $conn->prepare("SELECT ID FROM Users WHERE ID=?");
+		$stmt->bind_param("i", $inData["userID"]);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithError("Field Value Too Large");
-		}
-		else if ((preg_match($phoneRegex, $inData["phoneNumber"]) == false) && ($inData["phoneNumber"] != ""))
-		{
-			returnWithError("Phone Number Invalid");
+			$stmt = $conn->prepare("INSERT INTO Event (DateCreated, FirstName, LastName, PhoneNumber, EmailAddress, UserID) VALUES (?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param("sssssi", $reqTime, $inData["firstName"], $inData["lastName"], $inData["phoneNumber"], $inData["emailAddress"], $inData["userID"]);
+			$stmt->execute();
+			
+			$stmt = $conn->prepare("SELECT MAX(ID) maxID FROM Contacts");
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$newID = ($result->fetch_all())[0][0];
+			
+			returnWithInfo($inData["firstName"], $inData["lastName"], $newID, $inData["phoneNumber"], $inData["emailAddress"], $reqTime, $inData["userID"]);
 		}
 		else
 		{
-			$stmt = $conn->prepare("SELECT ID FROM Users WHERE ID=?");
-			$stmt->bind_param("i", $inData["userID"]);
-			$stmt->execute();
-			$result = $stmt->get_result();
-
-			if( $row = $result->fetch_assoc()  )
-			{
-				$stmt = $conn->prepare("INSERT INTO Contacts (DateCreated, FirstName, LastName, PhoneNumber, EmailAddress, UserID) VALUES (?, ?, ?, ?, ?, ?)");
-				$stmt->bind_param("sssssi", $reqTime, $inData["firstName"], $inData["lastName"], $inData["phoneNumber"], $inData["emailAddress"], $inData["userID"]);
-				$stmt->execute();
-				
-				$stmt = $conn->prepare("SELECT MAX(ID) maxID FROM Contacts");
-				$stmt->execute();
-				$result = $stmt->get_result();
-				$newID = ($result->fetch_all())[0][0];
-				
-				returnWithInfo($inData["firstName"], $inData["lastName"], $newID, $inData["phoneNumber"], $inData["emailAddress"], $reqTime, $inData["userID"]);
-			}
-			else
-			{
-				returnWithError("Invalid User");
-			}
+			returnWithError("Invalid User");
 		}
 
 		$stmt->close();

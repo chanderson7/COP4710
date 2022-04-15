@@ -50,7 +50,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New Contact</h5>
+                    <h5 class="modal-title">New Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addConBtnClose"></button>
                 </div>
                 <div class="alert collapse" role="alert" id="addConAlert"></div>
@@ -58,28 +58,53 @@
                     <form id="addConForm" class="p-2 needs-validation" novalidate>
                         <div class="row mb-3 gx-3">
                             <div class="col">
-                                <label for="addFName">First Name</label>
-                                <input type="text" name="firstName" id="addFName" class="form-control form-control-lg" placeholder="Enter First Name" >
+                                <label for="addFName">Event Name</label>
+                                <input type="text" name="firstName" id="addFName" class="form-control form-control-lg" placeholder="Enter Event Name" >
                                 <div class="invalid-feedback"></div>
                             </div>
                             <div class="col">
-                                <label for="addLName">Last Name</label>
-                                <input type="text" name="lastName" id="addLName" class="form-control form-control-lg" placeholder="Enter Last Name" >
+                                <label for="addLName">Category</label>
+                                <input type="text" name="lastName" id="addLName" class="form-control form-control-lg" placeholder="Enter Category" >
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="addEmail">E-mail Address</label>
-                            <input type="email" name="emailAddress" id="addEmail" class="form-control form-control-lg" placeholder="Enter E-mail" >
+                            <label for="addEventID">Event ID</label>
+                            <input type="eventID" name="eventID" id="addEmail" class="form-control form-control-lg" placeholder="Enter Event ID" >
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="addPhone">Phone Number</label>
-                            <input type="text" name="phoneNumber" id="addPhone" class="form-control form-control-lg" placeholder="Enter Phone Number" >
+                            <label for="addEmail">Description</label>
+                            <input type="email" name="emailAddress" id="addEmail" class="form-control form-control-lg" placeholder="Enter Description" >
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <input type="submit" value="Add User" class="btn btn-primary btn-block btn-lg" id="addConBtn">
+                            <label for="addPhone">Time</label>
+                            <input type="text" name="phoneNumber" id="addPhone" class="form-control form-control-lg" placeholder="Enter time" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addDate">Date</label>
+                            <input type="text" name="date" id="addDate" class="form-control form-control-lg" placeholder="Enter Date" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addLocation">Location</label>
+                            <input type="text" name="location" id="addLocation" class="form-control form-control-lg" placeholder="Enter location" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addPhoneNumber">Phone</label>
+                            <input type="text" name="phone" id="addPhoneNumber" class="form-control form-control-lg" placeholder="Enter phone number" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEmailAddress">Email address</label>
+                            <input type="text" name="email" id="addEmailAddress" class="form-control form-control-lg" placeholder="Enter email address" >
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" value="Add Event" class="btn btn-primary btn-block btn-lg" id="addConBtn">
                         </div>
                     </form>
                 </div>
@@ -89,7 +114,7 @@
 
     <body>
         <div id = "content">
-            <h2 class = "text-center">Contact Man</h2>
+            <h2 class = "text-center">College Event Website</h2>
                 <div class = "container">
                     <div class = "row">
                         <input class = "form-control from-control-lg" type = "text" placeholder = "Search" id="searchBar">
