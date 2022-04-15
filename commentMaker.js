@@ -40,8 +40,8 @@ function deleteComment(commentID){
         xhr.open("POST", urlBase + site + API.deleteComment, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.responseType = "json";
+        console.log(urlBase + site + API.deleteComment);
         console.log(JSON.stringify(data));
-        console.log(urlBase + site + API.delCon);
         xhr.send(JSON.stringify(data));
         xhr.onload = function() {
             var status = xhr.status;
@@ -53,15 +53,15 @@ function deleteComment(commentID){
                     let searchData = { Event_id: currentEvent}
                     postHandler(searchData, searchCommentCB, API.viewComments)
                 } else {
-                    window.alert("Contact does not exist")
+                    window.alert(xhr.response.error)
                 }
             }
         }
         console.log('HEY');
     }
 }
-/*
-function deleteContact(id){
+
+/*function deleteContact(id){
   let markedContact = document.getElementById(id);
   if(window.confirm("Are you sure you want to delete this contact?")){
     let data = {contactId:id};
@@ -90,8 +90,8 @@ function deleteContact(id){
       console.log("IN ALWAYS,\n XHR:", xhr, "\nSTATUS:\n", status, "\nERR:\n", error)
     })
   }
-}
-*/
+}*/
+
 
 function makeCommentEditButtons(commentID){
     let newRow = document.createElement("div");
