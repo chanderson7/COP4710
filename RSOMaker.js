@@ -132,14 +132,14 @@ function changeRSOInfoState(RSOID){
     let RSO = document.getElementById(RSOID);
     let nameDescHeaders = RSO.querySelector(".nameDescInfo");
     let nameDescInfo = RSO.querySelector(".nameDescInfoContent");
-    let editButtons = RSO.querySelector(".editButtons");
+    let editButtons = RSO.querySelector(".memberButtons");
     // if the div is hidden
     if(RSO.getAttribute("infoHidden")==="true")
     {
-        nameDescHeaders.setAttribute("class","nameDescInfo");
         RSO.setAttribute("infoHidden","false");
-        editButtons.setAttribute("class","row memberButtons")
+        nameDescHeaders.setAttribute("class","nameDescInfo");
         nameDescInfo.setAttribute("class","row nameDescInfoContent");
+        editButtons.setAttribute("class","row memberButtons")
     }
     else{
         applyHidden(nameDescHeaders);
