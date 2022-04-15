@@ -179,8 +179,8 @@ function prepareCommentEdit(commentID){
     newTextDiv.setAttribute("class","commentText contactInfoText col");
     newRatingDiv.setAttribute("class","ratingText contactInfoText col");
     textRatingInfoContentDiv.innerHTML = "";
-    textRatingInfoContentDiv.appendChild(newRatingDiv);
     textRatingInfoContentDiv.appendChild(newTextDiv);
+    textRatingInfoContentDiv.appendChild(newRatingDiv);
 
     // remove old buttons
     curComment.querySelector(".editButtons").remove();
@@ -271,10 +271,10 @@ function appendCommentChildren(comment, commentDiv, commentID){
 
     applyHidden(textRating);
     applyHidden(textRatingInfo);
+    applyHidden(commentButton);
 
     commentDiv.appendChild(textRating);
     commentDiv.appendChild(textRatingInfo);
-
     commentDiv.appendChild(commentButton);
 }
 
@@ -413,7 +413,7 @@ function addSearchBarEL(){
 function searchAndUpdate(){
     // first get search bar contents
     let searchBar = document.querySelector("#searchBar");
-    postHandler({Event_id:sessionStorage.getItem("event")},searchCommentCB,API.searchCon);
+    postHandler({Event_id:sessionStorage.getItem("event")},searchCommentCB,API.viewComments);
 }
 
 // this will get the ID of the current user with a cookie as well as call the empty search
