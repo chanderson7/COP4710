@@ -1,5 +1,5 @@
-// let currentContact = 0;
-// const CONTACTS_PER_PAGE = 10;
+let currentContact = 0;
+const CONTACTS_PER_PAGE = 10;
 let currentEvents;
 // let userID;
 let currentEvent
@@ -410,6 +410,10 @@ function resetPageState(){
 function updatePageState(results){
     currentEvents = results;
 }
+
+$( document ).ready(function() {
+    postHandler({Event_id:sessionStorage.getItem("event")}, searchCB, API.viewComments)
+});
 
 // addSearchBarEL()
 // postHandler({userId:userID, search:""},searchCB,API.searchCon);
