@@ -1,5 +1,5 @@
 let currentEVComment = 0;
-// const CONTACTS_PER_PAGE = 10;
+const CONTACTS_PER_PAGE = 10;
 let currentComments;
 // let userID;
 
@@ -51,11 +51,8 @@ function deleteComment(id){
                     markedContact.remove();
                     window.alert("Contact successfully deleted")
                     // re-search to remove deleted contact on page change
-                    let searchData = {
-                        "userId" : readCookie("id"),
-                        "search" : $("#searchBar").val()
-                    }
-                    postHandler(searchData, searchCommentCB, API.searchCon)
+                    let searchData = { Event_id: currentEvent}
+                    postHandler(searchData, searchCommentCB, API.viewComments)
                 } else {
                     window.alert("Contact does not exist")
                 }
