@@ -91,16 +91,19 @@ $(function() {
                 Date: "required",
                 Contact_email: "required",
                 Contact_phone: {
-                validPhone: true
+                    validPhone: true
             }
         },
         messages: {
             // Category: valMsg.noFName,
             Name: valMsg.noLName,
+                Name: "Please provide a name",
                 Description: valMsg.noDesc,
+                Time:"Please provide a time",
+                Date:"Please provide a date",
                 Contact_email: valMsg.badEmail,
                 Contact_phone: {
-                validPhone: valMsg.badPhone
+                    validPhone: valMsg.badPhone
             }
         },
         errorClass: "is-invalid",
