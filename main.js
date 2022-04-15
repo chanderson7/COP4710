@@ -20,7 +20,7 @@ const API = {
     addComment: "AddComment.php",
     deleteComment: "DeleteComment.php",
     editComment: "EditComment.php",
-    leaveRSO: "UserLeavesRSO.php",
+    leaveRSO: "UserLeavesRSO.php"
 
 }
 
