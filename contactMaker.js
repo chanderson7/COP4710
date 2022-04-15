@@ -64,6 +64,8 @@ function addConCB(response, status, xhr){
 }
 
 
+
+
 function deleteContact(id){
   let markedContact = document.getElementById(id);
   if(window.confirm("Are you sure you want to delete this contact?")){
@@ -146,6 +148,7 @@ function makeEditButtons(contactID){
   newRow.appendChild(rejectEditButton);
   return newRow;
 }
+
 function rejectEdit(){
   resetPageState();
 }

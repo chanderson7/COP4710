@@ -1,9 +1,10 @@
 let addConForm =  $("#addConForm")
+let addCommentForm = $("#addCommentForm")
 
 function getFormInfo(form) {
     let data = {}
     form.serializeArray().map(function(x){ data[x.name] = x.value })
-    let contact = {"userID": readCookie("id")}
+    let contact = {"User_ID": readCookie("id")}
     contact = $.extend(contact, data)
     // console.log(contact)
     return contact
@@ -44,21 +45,25 @@ $(function() {
             // console.log(event)
 
             let data = getFormInfo($("#addConForm"))
-            postHandler(data, addConCB, API.addCon)
+            postHandler(data, addConCB, API.createEvent)
         },
         rules: {
-            firstName: "required",
-            lastName: "required",
-            emailAddress: "required",
-            phoneNumber: {
+            Category: "required",
+            Name: "required",
+            Description: "required",
+            Time: "required",
+            Date: "required",
+            Contact_email: "required",
+            Contact_phone: {
                 validPhone: true
             }
         },
         messages: {
-            firstName: valMsg.noFName,
-            lastName: valMsg.noLName,
-            emailAddress: valMsg.badEmail,
-            phoneNumber: {
+            // Category: valMsg.noFName,
+            Name: valMsg.noLName,
+            Description: valMsg.noDesc,
+            Contact_email: valMsg.badEmail,
+            Contact_phone: {
                 validPhone: valMsg.badPhone
             }
         },
@@ -69,34 +74,45 @@ $(function() {
         }
     })
 
-    // edit contact
-    // will probably need to change the selector to not reference unique ID's
-    /*
-    $("#editConForm").validate({
-        submitHandler:  function (form, event) {
+    addCommentForm.validate({
+        submitHandler: function (form, event) {
             event.preventDefault()
-            event.stopPropagation()
             // console.log(event)
-            let data = getFormInfo($("#editConForm"))
-            postHandler(data, editConCB, API.editCon)
+
+            let data = getFormInfo($("#addCommentForm"))
+            data = $.extend(data, {"Event_id":currentEvent})
+            postHandler(data, addCommentCB, API.addComment)
         },
         rules: {
-            firstName: "required",
-            lastName: "required",
-            emailAddress: "required",
-            phoneNumber: {
+            Category: "required",
+                Name: "required",
+                Description: "required",
+                Time: "required",
+                Date: "required",
+                Contact_email: "required",
+                Contact_phone: {
                 validPhone: true
             }
         },
         messages: {
-            firstName: valMsg.noFName,
-            lastName: valMsg.noLName,
-            emailAddress: valMsg.badEmail,
-            phoneNumber: {
+            // Category: valMsg.noFName,
+            Name: valMsg.noLName,
+                Description: valMsg.noDesc,
+                Contact_email: valMsg.badEmail,
+                Contact_phone: {
                 validPhone: valMsg.badPhone
             }
+        },
+        errorClass: "is-invalid",
+            validClass: "is-valid",
+            errorPlacement: function(error, element){
+            $(element).next().append(error)
         }
     })
+
+    // edit contact
+    // will probably need to change the selector to not reference unique ID's
+    /*
     */
 
     //delete account
@@ -128,6 +144,12 @@ $("#addConModal").on("hide.bs.modal", function(event){
     $("#addConAlert").addClass("collapse").removeClass("alert-danger alert-success")
 })
 
+$("#addCommentModal").on("hide.bs.modal", function(event){
+    addCommentForm[0].reset()
+    $("#addCommentForm").validate().resetForm()
+    $("#addCommentAlert").addClass("collapse").removeClass("alert-danger alert-success")
+})
+
 $("#editConForm").on("keydown", function(){
     // $("#editAlert").addClass("collapse").removeClass("alert-danger alert-success")
 })
@@ -137,11 +159,14 @@ $("#accDelForm").on("keydown",function(){
 addConForm.on("keydown", function(){
     $("#addConAlert").addClass("collapse").removeClass("alert-danger alert-success")
 })
+addCommentForm.on("keydown", function(){
+    $("#addCommentAlert").addClass("collapse").removeClass("alert-danger alert-success")
+})
+
 
 $("#logoutBtn").click(function (event){
     doLogout()
 })
-
 
 $(function() {
     $(document).ready(function(){
@@ -156,6 +181,7 @@ $(function() {
     $.validator.addMethod("validPhone", function (value, element) {
         return phonePattern.test(value)
     })
+
 })
 // $.validator.setDefaults({});
 function makeContactDiv(contact){

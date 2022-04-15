@@ -1,4 +1,4 @@
-const urlBase = 'http://137.184.80.201/';
+const urlBase = 'https://cop4331.acobble.io/';
 const site = "API/"
 
 const API = {
@@ -8,11 +8,24 @@ const API = {
     addCon: "AddContact.php",
     delCon: "DeleteContact.php",
     editCon: "EditContact.php",
-    searchCon: "SearchContacts.php"
+    searchCon: "SearchContacts.php",
+
+    createEvent: "CreateEvent.php",
+    leaveRSO: "LeavesRSO.php",
+    viewComments: "ViewComments.php",
+    viewAllEvents: "ViewAllEvents.php",
+    viewPrivateEvents: "ViewPrivateEvents.php",
+    viewPublicEvents: "ViewPublicEvents.php",
+    viewRSOEvents: "ViewRSOEvents.php",
+    addComment: "AddComment.php",
+    deleteComment: "DeleteComment.php",
+    editComment: "EditComment.php",
+    leaveRSO: "UserLeavesRSO.php",
+
 }
 
 const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}/;
-const phonePattern = /(^$)|^([0-9]{3}-[0-9]{3}-[0-9]{4})$/;
+const phonePattern = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$///(^$)|^([0-9]{3}-[0-9]{3}-[0-9]{4})$/;
 
 const valMsg = {
     // badLoginMsg : "Username or password not recognized",
@@ -22,7 +35,7 @@ const valMsg = {
     noUser : "Please enter a username.",
     noPass : "Please enter a password.",
     noFName: "Please enter first name",
-    noLName: "Please enter last name",
+    noLName: "Please enter a name",
     badEmail: "Please enter a valid E-mail address",
     badPhone: "\"XXX-XXX-XXXX\" or blank ",
     regSucc: "Registration Succes! You may now login",
@@ -33,7 +46,8 @@ const valMsg = {
     accDelErr: "Account deletion failed, please try again",
     addConSucc: "Contact created!",
     conExist: "Contact already exists",
-    addConErr: "Contact creation failed, please try again"
+    addConErr: "Contact creation failed, please try again",
+    noDesc: "Please provide a description"
 }
 
 let userId = -1;
@@ -43,7 +57,7 @@ let lastName = "";
 function getLoginInfo(form){
     let formData = {}
     form.serializeArray().map(function(x){formData[x.name] = x.value;});
-    //formData.password = formData.password)
+    formData.password = sha256(formData.password)
     //console.log(formData)
     return formData
 }
@@ -52,7 +66,7 @@ function getRegInfo(){
     let firstName = document.getElementById("regFName").value
     let lastName = document.getElementById("regLName").value
     let login = document.getElementById("regUser").value
-    let password = document.getElementById("regPass").value
+    let password = sha256(document.getElementById("regPass").value)
     //let password = hashPass(document.getElementById("regPass").value)
     //let password = hashPass(password)
     return {firstName, lastName, login, password}
@@ -72,11 +86,11 @@ function postHandler(data, callback ,endPoint) {
             callback(response, textStatus, xhr)
         },
         error: function(xhr, textStatus, error){
-            console.log("\n\t" + endPoint + ": ERROR:\n" + "\n\t" + xhr, textStatus, error)
-            callback(error, textStatus, xhr)
+            console.log("\n\t" + endPoint + ": ERROR:\n", textStatus, error)
+            callback(null, textStatus, xhr)
         }
     }).always(function (xhr, status, error) {
-        console.log("IN ALWAYS,\n XHR:\n", xhr, "\nSTATUS:\n", status, "\nERR:\n", error)
+        // console.log("IN ALWAYS,\n XHR:\n", xhr, "\nSTATUS:\n", status, "\nERR:\n", error)
     })
 }
 
