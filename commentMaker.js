@@ -145,8 +145,10 @@ function confirmCommentEdit(commentID){
     // let lastName  = getChildValueByClass(contact,"lastname");
     // let email = getChildValueByClass(contact,"emailText");
     // let phone = getChildValueByClass(contact,"phoneText");
+    let data = getFormInfo($("#addCommentForm"))
     let apiCall = {"Event_id": sessionStorage.getItem("event"),"User_id": commentID};
-    apiCallForEdit(apiCall);
+    data = $.extend(data, apiCall)
+    apiCallForEdit(data);
     setTimeout(()=>{ resetPageState() },100);
 }
 function prepareCommentEdit(commentID){
