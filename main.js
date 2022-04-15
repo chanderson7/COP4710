@@ -21,7 +21,8 @@ const API = {
     editComment: "EditComment.php",
     leaveRSO: "UserLeavesRSO.php",
     joinRSO: "AddUserToRSO.php",
-    viewAllRSOs: "ViewAllRSO.php"
+    viewAllRSOs: "ViewAllRSO.php",
+    createRSO: "CreateRS.php"
 }
 
 const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}/;

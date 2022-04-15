@@ -45,41 +45,38 @@
     </div>
 </div>
 
-<!-- Add user modal-->
-<div class="modal" tabindex="-1" id="addConModal" aria-labelledby="addConModalLabel" aria-hidden="true">
+<div class="modal" tabindex="-1" id="addRSOModal" aria-labelledby="addRSOModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">New Contact</h5>
+                <h5 class="modal-title">New Event</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addConBtnClose"></button>
             </div>
-            <div class="alert collapse" role="alert" id="addConAlert"></div>
+            <div class="alert collapse" role="alert" id="addRSOAlert"></div>
             <div class="modal-body">
-                <form id="RSOform" class="p-2 needs-validation" novalidate>
-                    <div class="row mb-3 gx-3">
-                        <div class="col">
-                            <label for="addFName">First Name</label>
-                            <input type="text" name="firstName" id="addFName" class="form-control form-control-lg" placeholder="Enter First Name" >
-                            <div class="invalid-feedback"></div>
-                        </div>
-                        <div class="col">
-                            <label for="addLName">Last Name</label>
-                            <input type="text" name="lastName" id="addLName" class="form-control form-control-lg" placeholder="Enter Last Name" >
-                            <div class="invalid-feedback"></div>
-                        </div>
+                <form id="addRSOForm" class="p-2 needs-validation" novalidate>
+                    <div class="col">
+                        <label for="RSOName">Name</label>
+                        <input type="text" name="Name" id="RSOName" class="form-control form-control-lg" placeholder="Enter RSO Name" >
+                        <div class="invalid-feedback"></div>
                     </div>
-                    <div class="mb-3">
-                        <label for="addEmail">E-mail Address</label>
-                        <input type="email" name="emailAddress" id="addEmail" class="form-control form-control-lg" placeholder="Enter E-mail" >
+                    <div class="col">
+                        <label for="RSOID">Name</label>
+                        <input type="text" name="RSO_id" id="RSOID" class="form-control form-control-lg" placeholder="Enter RSO Id" >
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div>
+                        <label for="RSODescription">Description</label>
+                        <input type="text" name="Description" id="RSODescription" class="form-control form-control-lg" placeholder="Enter a description" >
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div>
+                        <label for="RSOLogo">Logo</label>
+                        <input type="text" name="Logo" id="RSOLogo" class="form-control form-control-lg" placeholder="Enter RSO Logo" >
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="addPhone">Phone Number</label>
-                        <input type="text" name="phoneNumber" id="addPhone" class="form-control form-control-lg" placeholder="Enter Phone Number" >
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="mb-3">
-                        <input type="submit" value="Add User" class="btn btn-primary btn-block btn-lg" id="addConBtn">
+                        <input type="submit" value="Create Event" class="btn btn-primary btn-block btn-lg" id="addRSOBtn">
                     </div>
                 </form>
             </div>
@@ -123,7 +120,7 @@
         </nav>
         <div class ="row justify-content">
             <div class="col-6">
-                <button class = "btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#addConModal">+</button>
+                <button class = "btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#addRSOModal">+</button>
             </div>
             <div class="col-6">
                 <!--                            Settings menu drop down-->
@@ -165,4 +162,5 @@
 <script type="text/javascript" src="sha256.js"></script>
 <script src="main.js"></script>
 <script src="RSOMaker.js"></script>
+<script src="contacts.js"></script>
 </html>

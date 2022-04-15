@@ -1,5 +1,6 @@
 let addConForm =  $("#addConForm")
 let addCommentForm = $("#addCommentForm")
+let addRSOForm = $("#addRSOForm")
 
 function getFormInfo(form) {
     let data = {}
@@ -50,6 +51,22 @@ function addConCB(response, status, xhr){
         }
     } else {
         $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(valMsg.addConErr)
+    }
+}
+
+function addRSOCB(response, status, xhr){
+    if (status !== "error") {
+        if (response.error === "Event Added!") {
+            $("#addRSOAlert").removeClass("collapse alert-danger").addClass("alert-success").text(response.error)
+            // re-search to show new contact
+            postHandler({}, searchRSOCB, API.viewAllRSOs)
+        } else {
+            $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text(response.error)
+            // $("#loginPass").removeClass("is-valid")
+            // $("#loginUser").removeClass("is-valid")
+        }
+    } else {
+        $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text("Http Error")
     }
 }
 
@@ -131,6 +148,31 @@ $(function() {
         }
     })
 
+    addRSOForm.validate({
+        submitHandler: function (form, event) {
+            event.preventDefault()
+            // console.log(event)
+
+            let data = $("#addRSOForm").serializeArray().map(function(x){ data[x.name] = x.value })
+            postHandler(data, addRSOCB, API.createRSO)
+        },
+        rules: {
+            Name: "required",
+            RSO_id: "Required",
+            Description: "required",
+        },
+        messages: {
+            Name: "Please provide a name",
+            RSO_id: "Please provide an ID",
+            Description: valMsg.noDesc,
+        },
+        errorClass: "is-invalid",
+        validClass: "is-valid",
+        errorPlacement: function(error, element){
+            $(element).next().append(error)
+        }
+    })
+
     // edit contact
     // will probably need to change the selector to not reference unique ID's
     /*
@@ -167,6 +209,12 @@ $("#addConModal").on("hide.bs.modal", function(event){
 
 $("#addCommentModal").on("hide.bs.modal", function(event){
     addCommentForm[0].reset()
+    $("#addCommentForm").validate().resetForm()
+    $("#addCommentAlert").addClass("collapse").removeClass("alert-danger alert-success")
+})
+
+$("#addRSOModal").on("hide.bs.modal", function(event){
+    addRSOForm[0].reset()
     $("#addCommentForm").validate().resetForm()
     $("#addCommentAlert").addClass("collapse").removeClass("alert-danger alert-success")
 })
