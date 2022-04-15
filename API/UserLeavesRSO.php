@@ -17,13 +17,13 @@ if( $conn->connect_error )
 else
 {
     $stmt = $conn->prepare("SELECT User_id FROM Owns WHERE User_id=? && RSO_id=?");
-    $stmt->bind_param("is", $inData["user_id"], $inData["RSO_id"]);
+    $stmt->bind_param("is", $inData["User_id"], $inData["RSO_id"]);
     $stmt->execute();
     $result = $stmt->get_result();
     if( $row = $result->fetch_assoc() )
     {
         $stmt = $conn->prepare("DELETE FROM Owns WHERE User_id=? && RSO_id = ?");
-        $stmt->bind_param("ss", $inData["user_id"], $inData["RSO_id"]);
+        $stmt->bind_param("ss", $inData["User_id"], $inData["RSO_id"]);
         $stmt->execute();
 
         returnWithError("Deleted from RSO!");
