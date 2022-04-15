@@ -319,8 +319,8 @@ function makeCommentDiv(comment, commentID){
 function loadComments(comments,lower,upper){
     // first we have to remove any contacts from previous loads
     console.log("loadContact's range is from "  +lower +"to"+ upper);
-    let contactsDiv = document.querySelector("#contacts");
-    contactsDiv.innerHTML ="";
+    let commentsDiv = document.querySelector("#comments");
+    commentsDiv.innerHTML ="";
     // now we iterate through the contacts, making a div for each
     // we must make sure that the amount of contacts is within range
     if(upper <= comments.length){
@@ -331,7 +331,7 @@ function loadComments(comments,lower,upper){
             newComment.setAttribute("id",comments[i].User_id);
             newComment.setAttribute("class","row contact");
             newComment.setAttribute("infoHidden","true");
-            contactsDiv.appendChild(newComment);
+            commentsDiv.appendChild(newComment);
         }
     }
     else if (upper > comments.length && lower<=comments.length){
@@ -342,7 +342,7 @@ function loadComments(comments,lower,upper){
             newComment.setAttribute("id",comments[i].User_id);
             newComment.setAttribute("class","row contact");
             newComment.setAttribute("infoHidden","true");
-            contactsDiv.appendChild(newComment);
+            commentsDiv.appendChild(newComment);
         }
     }
 }
@@ -350,7 +350,8 @@ function loadComments(comments,lower,upper){
 function searchCommentCB(response, textStatus, xhr){
     if (textStatus !== "error") {
         if (response.error === "") {
-            currentEvent = response.results[0].Event_id
+            sessionStorage.setItem("event", response.results[0].Event_id)
+            currentEvent = sessionStorage.getItem("event");
             updatePageState(response.results)
             loadComments(currentComments,0,CONTACTS_PER_PAGE);
             currentEVComment = CONTACTS_PER_PAGE;
