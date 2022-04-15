@@ -45,7 +45,7 @@ else
                 $stmt = $conn->prepare("INSERT INTO Comments (User_id, Event_id, Text, Rating) VALUES (?, ?, ?, ?)");
                 $stmt->bind_param("ssss", $inData["User_id"], $inData["Event_id"], $inData["Text"], $inData["Rating"]);
                 $stmt->execute();
-                //returnWithError("Successfully added comment!");
+                returnWithError("Successfully added comment!");
             }
         }
         else
