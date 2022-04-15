@@ -6,7 +6,6 @@ let currentComments;
 
 function applyHidden(div) {
     div.setAttribute("class",div.getAttribute("class")+ " hidden");
-
 }
 
 // adds a contact
@@ -170,8 +169,8 @@ function prepareCommentEdit(commentID){
 
     // do the same for email and phone
     let textRatingInfoContentDiv = curComment.querySelector(".textRatingInfoContent");
-    let oldTextDiv = curComment.querySelector(".phoneText");
-    let oldRatingDiv = curComment.querySelector(".emailText");
+    let oldTextDiv = curComment.querySelector(".commentText");
+    let oldRatingDiv = curComment.querySelector(".ratingText");
     let newTextDiv = document.createElement("input");
     let newRatingDiv = document.createElement("input");
 
@@ -261,8 +260,8 @@ function appendCommentChildren(comment, commentDiv, commentID){
 
     // the ones below only come up whem the extend button is pressed
     let textRating = document.createElement("div");//was additionalInfo
-    textRating.setAttribute("class","additionalInfo");
-    textRating.appendChild(makeTextRatingHeaders("additionalInfoHeaders","Comment","Rating"))
+    textRating.setAttribute("class","textRatingInfo");
+    textRating.appendChild(makeTextRatingHeaders("textRatingInfoHeaders","Comment","Rating"))
     let textRatingInfo = makeTextRatingInfo("textRatingInfoContent", comment.Text, comment.Rating)
 
     // now we append the children
