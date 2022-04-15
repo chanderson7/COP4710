@@ -9,7 +9,7 @@ function applyHidden(div) {
 
 function leaveRSO(RSOID){
     var xhr = new XMLHttpRequest();
-    let data = {RSO_id:RSOID, User_id:readCookie("id")}
+    let data = { User_id:readCookie("id"), RSO_id:RSOID}
     xhr.open("POST", urlBase + site + API.leaveRSO, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.responseType = "json";
@@ -19,9 +19,7 @@ function leaveRSO(RSOID){
     xhr.onload = function() {
         var status = xhr.status;
         if (status === 200) {
-            if (xhr.response.error === "") {
-                window.alert(Response.error)
-            }
+                window.alert(response.error)
         }
     }
     console.log('HEY');
@@ -29,7 +27,7 @@ function leaveRSO(RSOID){
 
 function joinRSO(RSOID){
     var xhr = new XMLHttpRequest();
-    let data = {RSO_id:RSOID, User_id:readCookie("id")}
+    let data = { User_id:readCookie("id"), RSO_id:RSOID}
     xhr.open("POST", urlBase + site + API.joinRSO, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.responseType = "json";
@@ -39,9 +37,7 @@ function joinRSO(RSOID){
     xhr.onload = function() {
         var status = xhr.status;
         if (status === 200) {
-            if (xhr.response.error === "") {
-                window.alert(Response.error)
-            }
+                window.alert(response.error)
         }
     }
     console.log('');
