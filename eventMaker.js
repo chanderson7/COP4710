@@ -59,7 +59,7 @@ function makeCommentButtons(eventID){ // this will have to be user_id, one per u
     return newRow;
 }
 
-function makeCatLocInfo(divClass,category,location){// remove phone arg
+function makeCatDescInfo(divClass,category,description){// remove phone arg
     let ci = document.createElement("div");
     ci.setAttribute("class","row "+divClass);
 
@@ -68,12 +68,12 @@ function makeCatLocInfo(divClass,category,location){// remove phone arg
     categoryDiv.innerHTML = category;
 
     // remove block
-    let locationDiv= document.createElement("div");
-    locationDiv.setAttribute("class","col catLocInfoText locationText");
-    locationDiv.innerHTML = location;
+    let descriptionDiv= document.createElement("div");
+    descriptionDiv.setAttribute("class","col catLocInfoText descriptionText");
+    descriptionDiv.innerHTML = description;
 
     ci.appendChild(categoryDiv);
-    ci.appendChild(locationDiv);//remove
+    ci.appendChild(descriptionDiv);//remove
 
     return ci;
 }
@@ -124,7 +124,7 @@ function makeDescriptionInfo(divClass,email,phone) {
     return ci;
 }
 
-function makeCatLocHeaders(divClass, category, location){
+function makeCatDescHeaders(divClass, category, description){
     let ci = document.createElement("div");
     ci.setAttribute("class", "row " + divClass);
 
@@ -132,12 +132,12 @@ function makeCatLocHeaders(divClass, category, location){
     categoryDiv.setAttribute("class", "col eventInfoText");
     categoryDiv.innerHTML = category;
 
-    let locationDiv = document.createElement("div");
-    locationDiv.setAttribute("class", "col eventInfoText");
-    locationDiv.innerHTML = location;
+    let descriptionDiv = document.createElement("div");
+    descriptionDiv.setAttribute("class", "col eventInfoText");
+    descriptionDiv.innerHTML = description;
 
     ci.appendChild(categoryDiv);
-    ci.appendChild(locationDiv);
+    ci.appendChild(descriptionDiv);
     return ci;
 }
 function makeTimeDateHeaders(divClass, time, date) {// get rid of phone arg
@@ -191,15 +191,15 @@ function appendEventChildren(event, eventDiv, eventID){
     // the extend button
     let extendButton = document.createElement("button");
     extendButton.setAttribute("class","contactExtendButton col-2");
-    extendButton.setAttribute("contactID",contact.ID);
+    extendButton.setAttribute("contactID",event.ID);
     extendButton.innerHTML = "&#8681;";
     extendButton.addEventListener("click", function(){changeEventInfoState(eventID)});
 
     // the ones below only come up whem the extend button is pressed
-    let catLoc = document.createElement("div");//was additionalInfo
-    catLoc.setAttribute("class","catLocInfo");
-    catLoc.appendChild(makeCatLocHeaders("catLocInfoHeaders","Category","Location"))
-    let catLocInfo = makeCatLocInfo("catLocInfoContent", event.Category, event.Location_name)
+    let catDesc = document.createElement("div");//was additionalInfo
+    catDesc.setAttribute("class","catLocInfo");
+    catDesc.appendChild(makeCatDescHeaders("catLocInfoHeaders","Category","Description"))
+    let catLocInfo = makeCatDescInfo("catLocInfoContent", event.Category, event.Description)
 
     let timeDate = document.createElement("div");
     timeDate.setAttribute("class","timeDateInfo");
@@ -211,27 +211,27 @@ function appendEventChildren(event, eventDiv, eventID){
     contacts.appendChild(makeContactInfoHeaders("contactInfoHeaders", "Email", "Phone"))
     let contactInfo =  makeContactInfo("contactInfoContent",event.Contact_email,event.Contact_phone)
 
-    let description = document.createElement("div");
-    description.setAttribute("class","descriptionInfo");
-    description.appendChild(makeDescriptionHeader("descriptionHeader", "Description"))
-    let descriptionInfo =  makeDescriptionInfo("descriptionInfoContent",event.Description)
+    // let description = document.createElement("div");
+    // description.setAttribute("class","descriptionInfo");
+    // description.appendChild(makeDescriptionHeader("descriptionHeader", "Description"))
+    // let descriptionInfo =  makeDescriptionInfo("descriptionInfoContent",event.Description)
 
     // now we append the children
     let commentButtons = makeCommentButtons(eventID);
     eventDiv.appendChild(eventName);
     eventDiv.appendChild(extendButton);
 
-    applyHidden(catLoc);
+    applyHidden(catDesc);
     applyHidden(catLocInfo);
     applyHidden(timeDate);
     applyHidden(timeDateInfo);
     applyHidden(contacts)
     applyHidden(contactInfo)
-    applyHidden(description);
-    applyHidden(descriptionInfo);
+    // applyHidden(description);
+    // applyHidden(descriptionInfo);
     applyHidden(commentButtons);
 
-    eventDiv.appendChild(catLoc);
+    eventDiv.appendChild(catDesc);
     eventDiv.appendChild(catLocInfo);
 
     eventDiv.appendChild(timeDate)
@@ -240,8 +240,8 @@ function appendEventChildren(event, eventDiv, eventID){
     eventDiv.appendChild(contacts)
     eventDiv.appendChild(contactInfo)
 
-    eventDiv.appendChild(description)
-    eventDiv.appendChild(descriptionInfo)
+    // eventDiv.appendChild(description)
+    // eventDiv.appendChild(descriptionInfo)
 
     eventDiv.appendChild(commentButtons);
 }
@@ -255,8 +255,8 @@ function changeEventInfoState(eventID){
     let timeDateInfo = event.querySelector(".timeDateInfoContent")
     let contacts = event.querySelector(".contactInfo")
     let contactInfo = event.querySelector(".contactInfoContent")
-    let description = event.querySelector(".descriptionInfo")
-    let descriptionInfo = event.querySelector(".descriptionInfoContent")
+    // let description = event.querySelector(".descriptionInfo")
+    // let descriptionInfo = event.querySelector(".descriptionInfoContent")
     let commentButtons = event.querySelector(".commentButtons");
     // if the div is hidden
     if(event.getAttribute("infoHidden")==="true")
@@ -268,8 +268,8 @@ function changeEventInfoState(eventID){
         timeDateInfo.setAttribute("class", "row timeDateInfoContent")
         contacts.setAttribute("class","contactInfo");
         contactInfo.setAttribute("class","row contactInfoContent");
-        description.setAttribute("class", "descriptionInfo")
-        descriptionInfo.setAttribute("class", "row descriptionInfoContent")// unclear if this needs row
+        // description.setAttribute("class", "descriptionInfo")
+        // descriptionInfo.setAttribute("class", "row descriptionInfoContent")// unclear if this needs row
         commentButtons.setAttribute("class","row commentButtons")
     }
     else{
@@ -280,8 +280,8 @@ function changeEventInfoState(eventID){
         applyHidden(timeDateInfo);
         applyHidden(contacts)
         applyHidden(contactInfo)
-        applyHidden(description);
-        applyHidden(descriptionInfo);
+        // applyHidden(description);
+        // applyHidden(descriptionInfo);
         applyHidden(commentButtons);
         event.setAttribute("infoHidden","true");
     }
@@ -327,6 +327,7 @@ function loadEvents(contacts, lower, upper){
 }
 
 function searchCB(response, textStatus, xhr){
+    console.log(response)
     if (textStatus !== "error") {
         if (response.error === "") {
             updatePageState(response.results)
@@ -411,9 +412,9 @@ function updatePageState(results){
     currentEvents = results;
 }
 
-$( document ).ready(function() {
-    postHandler({}, searchCB, API.viewAllEvents)
-});
+// $( document ).ready(function() {
+//     postHandler({}, searchCB, API.viewAllEvents)
+// });
 
 // addSearchBarEL()
 // postHandler({userId:userID, search:""},searchCB,API.searchCon);

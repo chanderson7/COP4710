@@ -87,7 +87,7 @@ function postHandler(data, callback ,endPoint) {
         },
         error: function(xhr, textStatus, error){
             console.log("\n\t" + endPoint + ": ERROR:\n", textStatus, error)
-            callback(null, textStatus, xhr)
+            callback(error, textStatus, xhr)
         }
     }).always(function (xhr, status, error) {
         // console.log("IN ALWAYS,\n XHR:\n", xhr, "\nSTATUS:\n", status, "\nERR:\n", error)
