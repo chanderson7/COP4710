@@ -30,7 +30,7 @@ else
     }
     else
     {
-        returnWithError("User not int RSO!");
+        returnWithError("User not in RSO!");
     }
 
 }
