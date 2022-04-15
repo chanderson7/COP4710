@@ -147,7 +147,7 @@
 
 <body>
     <div id = "content">
-        <h2 class = "text-center">Contact Man</h2>
+        <h2 class = "text-center">College Events</h2>
             <div class = "container">
 <!--                    <div class = "row">-->
 <!--                        <input class = "form-control from-control-lg" type = "text" placeholder = "Search" id="searchBar">-->
@@ -160,12 +160,16 @@
                         <!--                            </button>-->
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link"  href="home.html">Events</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Events</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link button" id="allEvtButton" type="button"  href="home.html">All Events</a></li>
+                                        <li><a class="nav-link button" id="publicEvBtn" type="button"  href="home.html">Public</a></li>
+                                        <li><a class="nav-link button" id="privateEvBtn" href="home.html">Private</a></li>
+                                        <li><a class="nav-link button" id="RSOEvBtn" href="home.html">RSO</a></li>
+                                    </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="RSO.html">RSOs</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link" href="RSO.html">RSOs</a></li>
                             </ul>
                             <form class="d-flex">
                                 <!--                                        <input class = "form-control from-control-lg" type = "text" placeholder = "Search" id="searchBar">-->

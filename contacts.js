@@ -39,8 +39,8 @@ $("#searchBar").on("keyup", function(event){
 function addConCB(response, status, xhr){
     let newContact
     if (status !== "error") {
-        if (response.error === "") {
-            $("#addConAlert").removeClass("collapse alert-danger").addClass("alert-success").text("Added event!")
+        if (response.error === "Event Added!") {
+            $("#addConAlert").removeClass("collapse alert-danger").addClass("alert-success").text(response.error)
             // re-search to show new contact
             postHandler({}, searchCB, API.viewAllEvents)
         } else {
@@ -183,6 +183,7 @@ addConForm.on("keydown", function(){
 addCommentForm.on("keydown", function(){
     $("#addCommentAlert").addClass("collapse").removeClass("alert-danger alert-success")
 })
+
 
 
 $("#logoutBtn").click(function (event){

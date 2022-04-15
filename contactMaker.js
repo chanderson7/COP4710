@@ -45,7 +45,7 @@ function makeContactInfoContentDiv(divClass,email,phone){
 function addConCB(response, status, xhr){
   let newContact
   if (status !== "error") {
-    if (response.error === "") {
+    if (response.error === "Event Added!") {
       $("#addConAlert").removeClass("collapse alert-danger").addClass("alert-success").text(valMsg.addConSucc)
       // re-search to show new contact
       let searchData = {
@@ -62,9 +62,6 @@ function addConCB(response, status, xhr){
     $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(valMsg.addConErr)
   }
 }
-
-
-
 
 function deleteContact(id){
   let markedContact = document.getElementById(id);

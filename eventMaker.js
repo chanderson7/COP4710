@@ -30,11 +30,22 @@ function addCommentCB(response, status, xhr){
             // $("#loginUser").removeClass("is-valid")
         }
     } else {
-        $("#addConAlert").removeClass("collapse alert-success").addClass("alert-danger").text(status)
+        $("#addCommentAlert").removeClass("collapse alert-success").addClass("alert-danger").text(status)
     }
 }
 
-
+$("#allEvtButton").click(function (event){
+    postHandler({}, searchCB, API.viewAllEvents)
+})
+$("#publicEvBtn").click(function (event){
+    postHandler({}, searchCB, API.viewPublicEvents)
+})
+$("#privateEvBtn").click(function (event){
+    postHandler({}, searchCB, API.viewPrivateEvents)
+})
+$("#RSOEvBtn").click(function (event){
+    postHandler({}, searchCB, API.viewRSOEvents)
+})
 
 // this takes the div class attribute as well as  the inner content
 function makeCommentButtons(eventID){ // this will have to be user_id, one per user.
