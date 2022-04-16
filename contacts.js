@@ -153,7 +153,7 @@ $(function() {
         submitHandler: function (form, event) {
             event.preventDefault()
             // console.log(event)
-            let data = $("#addRSOForm").serializeArray().map(function(x){ data[x.name] = x.value })
+            let data = getFormInfo($("#addRSOForm"))
             // console.log(data)
             postHandler(data, addRSOCB, API.createRSO)
         },
