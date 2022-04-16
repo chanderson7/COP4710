@@ -154,7 +154,7 @@ $(function() {
             event.preventDefault()
             // console.log(event)
             let data = $("#addRSOForm").serializeArray().map(function(x){ data[x.name] = x.value })
-            console.log(data)
+            // console.log(data)
             postHandler(data, addRSOCB, API.createRSO)
         },
         rules: {
