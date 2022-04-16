@@ -164,6 +164,7 @@ function loadRSOs(RSOs, lower, upper){
 
         for(let i = lower; i<upper;i++)
         {
+
             let newRSO = makeRSODiv(RSOs[i],RSOs[i].RSO_id);
             newRSO.setAttribute("id",RSOs[i].RSO_id);
             newRSO.setAttribute("class","row RSO");
@@ -187,9 +188,10 @@ function loadRSOs(RSOs, lower, upper){
 function searchRSOCB(response, textStatus, xhr){
     if (textStatus !== "error") {
         if (response.error === "") {
-            console.log("Before Update: "+ currentRSOs)
+
             updatePageState(response.results)
-            console.log("After Update: "+ currentRSOs)
+            console.log("After Update: ")
+            console.log(currentRSOs)
             loadRSOs(currentRSOs,0,CONTACTS_PER_PAGE);
             RSOCurrent = CONTACTS_PER_PAGE;
         } else {

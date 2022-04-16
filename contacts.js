@@ -56,7 +56,9 @@ function addConCB(response, status, xhr){
 
 function addRSOCB(response, status, xhr){
     if (status !== "error") {
+        console.log(response)
         if (response.error === "Event Added!") {
+
             $("#addRSOAlert").removeClass("collapse alert-danger").addClass("alert-success").text(response.error)
             // re-search to show new contact
             postHandler({}, searchRSOCB, API.viewAllRSOs)
