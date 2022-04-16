@@ -32,7 +32,7 @@ else
         $stmt->bind_param("ssss", $inData["RSO_id"], $inData["Name"], $inData["Description"], $inData["Logo"]);
         $stmt->execute();
     
-        returnWithError("Event Added!");
+        returnWithError("RSO Added!");
     }
 }
 
