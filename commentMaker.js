@@ -258,7 +258,7 @@ function appendCommentChildren(comment, commentDiv, commentID){
     extendButton.addEventListener("click", function(){changeCommInfoState(commentID)});
 
     // the ones below only come up whem the extend button is pressed
-    let name = document.createElement("div");//was additionalInfo
+    let textRating = document.createElement("div");//was additionalInfo
     textRating.setAttribute("class","textRatingInfo");
     textRating.appendChild(makeTextRatingHeaders("textRatingInfoHeaders","Comment","Rating"))
     let textRatingInfo = makeTextRatingInfo("textRatingInfoContent", comment.Text, comment.Rating)
