@@ -25,6 +25,22 @@ function leaveRSO(RSOID){
     console.log('HEY');
 }
 
+function addRSOCB(response, status, xhr){
+    if (status !== "error") {
+        if (response.error === "Event Added!") {
+            $("#addRSOAlert").removeClass("collapse alert-danger").addClass("alert-success").text(response.error)
+            // re-search to show new contact
+            postHandler({}, searchRSOCB, API.viewAllRSOs)
+        } else {
+            $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text(response.error)
+            // $("#loginPass").removeClass("is-valid")
+            // $("#loginUser").removeClass("is-valid")
+        }
+    } else {
+        $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text("Http Error")
+    }
+}
+
 function joinRSO(RSOID){
     var xhr = new XMLHttpRequest();
     let data = { User_id:readCookie("id"), RSO_id:RSOID}
@@ -175,7 +191,7 @@ function loadRSOs(RSOs, lower, upper){
         for(let i = lower; i<RSOs.length;i++)
         {
             let newContact = makeContactDiv(RSOs[i],RSOs[i].RSO_id);
-            newContact.setAttribute("id",RSOs[i].RSO_id);
+            newContact.setAttribute("id", RSOs[i].RSO_id);
             newContact.setAttribute("class","row RSO");
             newContact.setAttribute("infoHidden","true");
             contactsDiv.appendChild(newContact);
