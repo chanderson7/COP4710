@@ -153,19 +153,18 @@ $(function() {
         submitHandler: function (form, event) {
             event.preventDefault()
             // console.log(event)
-
             let data = $("#addRSOForm").serializeArray().map(function(x){ data[x.name] = x.value })
             console.log(data)
             postHandler(data, addRSOCB, API.createRSO)
         },
         rules: {
             Name: "required",
-            RSO_id: "Required",
+            // RSO_id: "Required",
             Description: "required",
         },
         messages: {
             Name: "Please provide a name",
-            RSO_id: "Please provide an ID",
+            // RSO_id: "Please provide an ID",
             Description: valMsg.noDesc,
         },
         errorClass: "is-invalid",
