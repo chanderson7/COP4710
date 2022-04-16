@@ -210,8 +210,8 @@ $("#addCommentModal").on("hide.bs.modal", function(event){
 
 $("#addRSOModal").on("hide.bs.modal", function(event){
     addRSOForm[0].reset()
-    $("#addCommentForm").validate().resetForm()
-    $("#addCommentAlert").addClass("collapse").removeClass("alert-danger alert-success")
+    $("#addRSOForm").validate().resetForm()
+    $("#addRSOAlert").addClass("collapse").removeClass("alert-danger alert-success")
 })
 
 $("#editConForm").on("keydown", function(){
