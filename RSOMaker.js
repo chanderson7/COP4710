@@ -1,7 +1,8 @@
-let currentContact = 0;
+let RSOCurrent = 0;
 const CONTACTS_PER_PAGE = 10;
 let currentRSOs;
 let userID;
+
 
 function applyHidden(div) {
     div.setAttribute("class",div.getAttribute("class")+ " hidden");
@@ -23,22 +24,6 @@ function leaveRSO(RSOID){
         }
     }
     console.log('HEY');
-}
-
-function addRSOCB(response, status, xhr){
-    if (status !== "error") {
-        if (response.error === "Event Added!") {
-            $("#addRSOAlert").removeClass("collapse alert-danger").addClass("alert-success").text(response.error)
-            // re-search to show new contact
-            postHandler({}, searchRSOCB, API.viewAllRSOs)
-        } else {
-            $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text(response.error)
-            // $("#loginPass").removeClass("is-valid")
-            // $("#loginUser").removeClass("is-valid")
-        }
-    } else {
-        $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text("Http Error")
-    }
 }
 
 function joinRSO(RSOID){
@@ -161,7 +146,7 @@ function changeRSOInfoState(RSOID){
     }
 }
 
-function makeContactDiv(RSO, RSOID){
+function makeRSODiv(RSO, RSOID){
     let RSODiv = document.createElement("div");
     appendContactChildren(RSO,RSODiv,RSOID);
     return RSODiv
@@ -171,30 +156,30 @@ function makeContactDiv(RSO, RSOID){
 function loadRSOs(RSOs, lower, upper){
     // first we have to remove any RSOs from previous loads
     console.log("loadRSO's range is from "  +lower +"to"+ upper);
-    let contactsDiv = document.querySelector("#RSOs");
-    contactsDiv.innerHTML ="";
+    let RSOsDiv = document.querySelector("#RSOs");
+    RSOsDiv.innerHTML ="";
     // now we iterate through the RSOs, making a div for each
     // we must make sure that the amount of RSOs is within range
     if(upper <= RSOs.length){
 
         for(let i = lower; i<upper;i++)
         {
-            let newContact = makeContactDiv(RSOs[i],RSOs[i].RSO_id);
-            newContact.setAttribute("id",RSOs[i].RSO_id);
-            newContact.setAttribute("class","row RSO");
-            newContact.setAttribute("infoHidden","true");
-            contactsDiv.appendChild(newContact);
+            let newRSO = makeRSODiv(RSOs[i],RSOs[i].RSO_id);
+            newRSO.setAttribute("id",RSOs[i].RSO_id);
+            newRSO.setAttribute("class","row RSO");
+            newRSO.setAttribute("infoHidden","true");
+            RSOsDiv.appendChild(newRSO);
         }
     }
     else if (upper > RSOs.length && lower<=RSOs.length){
 
         for(let i = lower; i<RSOs.length;i++)
         {
-            let newContact = makeContactDiv(RSOs[i],RSOs[i].RSO_id);
-            newContact.setAttribute("id", RSOs[i].RSO_id);
-            newContact.setAttribute("class","row RSO");
-            newContact.setAttribute("infoHidden","true");
-            contactsDiv.appendChild(newContact);
+            let newRSO = makeRSODiv(RSOs[i],RSOs[i].RSO_id);
+            newRSO.setAttribute("id", RSOs[i].RSO_id);
+            newRSO.setAttribute("class","row RSO");
+            newRSO.setAttribute("infoHidden","true");
+            RSOsDiv.appendChild(newRSO);
         }
     }
 }
@@ -202,9 +187,11 @@ function loadRSOs(RSOs, lower, upper){
 function searchRSOCB(response, textStatus, xhr){
     if (textStatus !== "error") {
         if (response.error === "") {
+            console.log("Before Update: "+ currentRSOs)
             updatePageState(response.results)
+            console.log("After Update: "+ currentRSOs)
             loadRSOs(currentRSOs,0,CONTACTS_PER_PAGE);
-            currentContact = CONTACTS_PER_PAGE;
+            RSOCurrent = CONTACTS_PER_PAGE;
         } else {
             // TODO: no contacts found error message
             updatePageState({});
@@ -221,22 +208,22 @@ function searchRSOCB(response, textStatus, xhr){
 function getNextPage(){
 
     // only load next page if there is one
-    if(currentContact < currentRSOs.length){
+    if(RSOCurrent < currentRSOs.length){
         // if loading the next amount of contacts will go over the length
         // just go up to length
-        if(currentContact + (CONTACTS_PER_PAGE) > currentRSOs.length){
-            loadRSOs(currentRSOs,currentContact, currentRSOs.length);
-            currentContact = currentRSOs.length;
+        if(RSOCurrent + (CONTACTS_PER_PAGE) > currentRSOs.length){
+            loadRSOs(currentRSOs,RSOCurrent, currentRSOs.length);
+            RSOCurrent = currentRSOs.length;
         }
         else{
-            loadRSOs(currentRSOs,currentContact,currentContact+(CONTACTS_PER_PAGE*2));
-            currentContact+=CONTACTS_PER_PAGE;
+            loadRSOs(currentRSOs,RSOCurrent,RSOCurrent+(CONTACTS_PER_PAGE*2));
+            RSOCurrent+=CONTACTS_PER_PAGE;
         }
     }
 }
 function getPrevPage(){
     loadRSOs(currentRSOs,0,10);
-    currentContact = 10;
+    RSOCurrent = 10;
 
 }
 function addPageButtonListeners(){

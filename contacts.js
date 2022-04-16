@@ -54,7 +54,21 @@ function addConCB(response, status, xhr){
     }
 }
 
-
+function addRSOCB(response, status, xhr){
+    if (status !== "error") {
+        if (response.error === "Event Added!") {
+            $("#addRSOAlert").removeClass("collapse alert-danger").addClass("alert-success").text(response.error)
+            // re-search to show new contact
+            postHandler({}, searchRSOCB, API.viewAllRSOs)
+        } else {
+            $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text(response.error)
+            // $("#loginPass").removeClass("is-valid")
+            // $("#loginUser").removeClass("is-valid")
+        }
+    } else {
+        $("#addRSOAlert").removeClass("collapse alert-success").addClass("alert-danger").text("Http Error")
+    }
+}
 
 // event and validation handling
 $(function() {
@@ -117,14 +131,13 @@ $(function() {
         },
         messages: {
             // Category: valMsg.noFName,
-            Name: valMsg.noLName,
-                Name: "Please provide a name",
-                Description: valMsg.noDesc,
-                Time:"Please provide a time",
-                Date:"Please provide a date",
-                Contact_email: valMsg.badEmail,
-                Contact_phone: {
-                    validPhone: valMsg.badPhone
+            Name: "Please provide a name",
+            Description: valMsg.noDesc,
+            Time:"Please provide a time",
+            Date:"Please provide a date",
+            Contact_email: valMsg.badEmail,
+            Contact_phone: {
+                validPhone: valMsg.badPhone
             }
         },
         errorClass: "is-invalid",
@@ -140,6 +153,7 @@ $(function() {
             // console.log(event)
 
             let data = $("#addRSOForm").serializeArray().map(function(x){ data[x.name] = x.value })
+            console.log(data)
             postHandler(data, addRSOCB, API.createRSO)
         },
         rules: {
@@ -158,11 +172,6 @@ $(function() {
             $(element).next().append(error)
         }
     })
-
-    // edit contact
-    // will probably need to change the selector to not reference unique ID's
-    /*
-    */
 
     //delete account
     $("#accDelForm").validate({
